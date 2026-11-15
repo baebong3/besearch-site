@@ -83,12 +83,14 @@ body=f'''<div class="in page">
 document.querySelectorAll('.filt button').forEach(function(x){{x.classList.toggle('on',x===b)}});
 document.querySelectorAll('.gs').forEach(function(s){{s.style.display=(!b.dataset.f||s.dataset.c===b.dataset.f)?'':'none'}});}});}});</script>'''
 open('examples.html','w',encoding='utf8').write(page('예시',body))
-# 첫 화면 예시 띠
-PICK=['u_edu','a_AxwtS8vR3UDjcVv1LxLvcj','r_forest','r_mice','r_forestmap','a_YSNsnuApQ25zAXJLwkt3T2','a_VauRA9WZB8gC1EZ5aUw5Sq','a_2wo9xhYeDnZwhSGf2qdmx1','u_traffic','a_GWDtKaT8ct8iyNheWrExJC','a_FZdLk6sk2TXah7ehK5M7xe','a_DZQepgNkbYgW6yLNwQqoJp']
-by={e[0]:e for e in EX}; hg=''
-for k in PICK:
-    th,title,cat,link=by[k]
-    hg+=f'<div class="gc"><img alt="{html.escape(title)} 화면" src="thumbs/{th}.jpg"><div><b>{html.escape(title)}</b><span>{cat}</span></div></div>'
+# 첫 화면 예시: 화면 전체 캡처 대신 대시보드마다 대표 그래프·그림 한 개
+PICK=[('edu_0','평생학습 실태 대시보드','삽화와 핵심 요약'),('korail_0','한국철도공사 서비스 품질 현황','머리 그림'),('fruit_0','농산물 가격동향','장보기 지수 계기판'),
+      ('flow_0','국민여행조사 여행 흐름 지도','시도 간 이동 흐름'),('rank_2','방한 시장 순위 변화','연도별 순위 변화선'),('poll_0','여론조사 종합 추세','긍정·부정 추세선'),
+      ('ocean_2','해양산업 생태계 현황판','기관·사업 연결망'),('sandan_0','국가산단 산업동향 현황판','단지별 생산 지도'),('mice_0','MICE 산업 뉴스 동향','분류별 뉴스 카드'),
+      ('forest_0','임산물 수급 동향','머리 그림'),('lodging_1','숙박 통계 종합 대시보드','연도별 개폐업 막대'),('travel_3','국민여행조사 데이터 대시보드','연도별 비교 막대')]
+hg=''
+for k,title,what in PICK:
+    hg+=f'<div class="pk"><div class="pv{" wide" if k in ("korail_0","forest_0") else ""}"><img loading="lazy" alt="{html.escape(title)}의 {what}" src="img/pick/{k}.jpg"></div><div class="pt2"><b>{html.escape(title)}</b><span>{what}</span></div></div>'
 ix=open('index.html',encoding='utf8').read().replace('{{HOME_GAL}}',hg).replace('{{EX_N}}',str(len(EX)))
 open('index.html','w',encoding='utf8').write(ix)
 
