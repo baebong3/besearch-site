@@ -16,6 +16,7 @@ def page(title,body):
 D,R,I,T='통계 대시보드','보고서·브리프','뉴스 동향·자동 수집','조사 도구·지도'
 G='https://baebong3.github.io/'
 EX=[ # (썸네일, 제목, 분류, 링크)
+('u_edu','평생학습 실태 대시보드',D,''),
 ('a_AxwtS8vR3UDjcVv1LxLvcj','한국철도공사 서비스 품질 현황 대시보드',D,''),
 ('r_kbo2','KBO 관중 분석 콘솔 2016~2026',D,''),
 ('r_kbo1','KBO 관중 분석 콘솔 2025~2026',D,''),
@@ -83,7 +84,7 @@ document.querySelectorAll('.filt button').forEach(function(x){{x.classList.toggl
 document.querySelectorAll('.gs').forEach(function(s){{s.style.display=(!b.dataset.f||s.dataset.c===b.dataset.f)?'':'none'}});}});}});</script>'''
 open('examples.html','w',encoding='utf8').write(page('예시',body))
 # 첫 화면 예시 띠
-PICK=['a_AxwtS8vR3UDjcVv1LxLvcj','r_forest','r_mice','r_forestmap','a_YSNsnuApQ25zAXJLwkt3T2','a_VauRA9WZB8gC1EZ5aUw5Sq','a_2wo9xhYeDnZwhSGf2qdmx1','u_traffic','a_GWDtKaT8ct8iyNheWrExJC','a_FZdLk6sk2TXah7ehK5M7xe','a_DZQepgNkbYgW6yLNwQqoJp','a_Husc7r3XTX5AgnXKdab4dG']
+PICK=['u_edu','a_AxwtS8vR3UDjcVv1LxLvcj','r_forest','r_mice','r_forestmap','a_YSNsnuApQ25zAXJLwkt3T2','a_VauRA9WZB8gC1EZ5aUw5Sq','a_2wo9xhYeDnZwhSGf2qdmx1','u_traffic','a_GWDtKaT8ct8iyNheWrExJC','a_FZdLk6sk2TXah7ehK5M7xe','a_DZQepgNkbYgW6yLNwQqoJp']
 by={e[0]:e for e in EX}; hg=''
 for k in PICK:
     th,title,cat,link=by[k]
