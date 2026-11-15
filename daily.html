@@ -169,6 +169,11 @@ a.gc:hover{border-color:var(--acc)}
 .io{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin-top:14px;font-size:14.5px}
 .io dt{font-weight:700;color:var(--acc);white-space:nowrap}
 .io dd{color:var(--ink2)}
+.flow{list-style:none;counter-reset:f;display:grid;gap:10px}
+.flow li{counter-increment:f;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px 13px 52px;position:relative}
+.flow li::before{content:counter(f);position:absolute;left:16px;top:14px;width:24px;height:24px;border-radius:50%;background:var(--acc-s);color:var(--acc);font-weight:800;font-size:13px;display:grid;place-items:center}
+.flow b{display:block;font-size:15px}
+.flow span{font-size:13.5px;color:var(--ink2)}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
 .chips span{font-size:13px;font-weight:700;padding:5px 11px;border-radius:8px;border:1px solid var(--line);background:var(--card)}
 .pj3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
@@ -235,7 +240,7 @@ a.shot:hover{border-color:var(--acc)}
   <h2>일일 동향 자료</h2>
   <p class="sub">공개 자료를 매일 수집해 갱신하는 통계 지표와 정책 뉴스 브리핑입니다. 아래에서 항목을 선택하세요.</p>
   <div class="svsel" role="tablist" aria-label="자료 선택">
-    <div class="svg"><span>통계 지표</span><button type="button" role="tab" data-s="poll">국정수행 평가</button><button type="button" role="tab" data-s="price">농산물 가격동향</button></div>
+    <div class="svg"><span>통계 지표</span><button type="button" role="tab" data-s="poll">국정수행 평가·정당 지지도</button><button type="button" role="tab" data-s="price">농산물 가격동향</button></div>
     <div class="svg"><span>정책 뉴스 브리핑</span><button type="button" role="tab" data-s="youth">청년정책</button></div>
   </div>
 
@@ -247,6 +252,14 @@ a.shot:hover{border-color:var(--acc)}
       <div class="lg"><span><i style="background:var(--s1)"></i>긍정 평가</span><span><i style="background:var(--s2)"></i>부정 평가</span></div>
       <div id="pollC" class="pollc"></div></div>
     <details open><summary>최근 조사 10건</summary><div class="tscroll"><table id="pollT"></table></div></details>
+
+    <div class="svh" style="margin-top:38px"><h3>정당 지지도 종합 추세</h3></div>
+    <p class="svd">같은 조사에서 함께 발표된 정당 지지도를 모은 것입니다. 정당 지지도를 묻지 않은 조사는 제외했습니다.</p>
+    <div class="kpis" id="partyK"></div>
+    <div class="ch"><h4>정당 지지도 추이</h4><div class="cap">단위: % · 점은 더불어민주당·국민의힘의 개별 조사, 선은 추세선(앞뒤 2주 범위)</div>
+      <div class="lg" id="partyLg"></div>
+      <div id="partyC" class="pollc"></div></div>
+    <details open><summary>최근 조사 10건</summary><div class="tscroll"><table id="partyT"></table></div></details>
     <p class="note">자료: 각 조사기관 공표 결과(출처는 표의 링크). 자세한 내용은 중앙선거여론조사심의위원회 홈페이지 참조.</p>
   </section>
 
@@ -282,8 +295,8 @@ a.shot:hover{border-color:var(--acc)}
   <noscript><p class="note">이 페이지는 자료를 실시간으로 불러오므로 자바스크립트가 필요합니다.</p></noscript>
 </div>
 <style>
-:root{--s1:#008C80;--s2:#DB6B33}
-@media (prefers-color-scheme:dark){:root{--s1:#19A092;--s2:#CF7341}}
+:root{--s1:#008C80;--s2:#DB6B33;--p1:#2F6FD6;--p2:#D5483B;--p3:#0F8F70;--p4:#4A5560;--p5:#8D969F}
+@media (prefers-color-scheme:dark){:root{--s1:#19A092;--s2:#CF7341;--p1:#4583E0;--p2:#D95B4B;--p3:#1C9E7E;--p4:#C3CACF;--p5:#7E888F}}
 .svsel{display:flex;gap:10px 26px;flex-wrap:wrap;margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid var(--line)}
 .svg{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .svg span{font-size:12.5px;font-weight:700;color:var(--muted);margin-right:4px}
@@ -301,8 +314,12 @@ a.shot:hover{border-color:var(--acc)}
 .tscroll{overflow-x:auto}
 #pollT{min-width:600px}
 #pollT td,#pollT th{white-space:nowrap}
-#pollT td:nth-child(1),#pollT th:nth-child(1),#pollT td:nth-child(2),#pollT th:nth-child(2){text-align:left}
-#pollT a{color:var(--acc)}
+#pollT td:nth-child(1),#pollT th:nth-child(1),#pollT td:nth-child(2),#pollT th:nth-child(2),#partyT td:nth-child(1),#partyT th:nth-child(1),#partyT td:nth-child(2),#partyT th:nth-child(2){text-align:left}
+#pollT a,#partyT a{color:var(--acc)}
+#partyT{min-width:680px}
+#partyT td,#partyT th{white-space:nowrap}
+.lg{flex-wrap:wrap}
+.lg i.ds{background:repeating-linear-gradient(90deg,var(--p5) 0 4px,transparent 4px 7px)!important}
 .svf{width:100%;height:1500px;border:1px solid var(--line);border-radius:14px;background:#fff}
 .yf{display:grid;gap:8px;margin-bottom:8px}
 .yf .filt{margin:0}
@@ -357,35 +374,49 @@ function kpi(l,v,s){return '<div class="kpi"><span>'+l+'</span><b>'+v+'</b><em>'
 function csv(t){var R=[],r=[],c='',q=false;for(var i=0;i<t.length;i++){var ch=t[i];if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++;}else q=false;}else c+=ch;}
  else if(ch==='"')q=true;else if(ch===','){r.push(c);c='';}else if(ch==='\n'){r.push(c);R.push(r);r=[];c='';}else if(ch!=='\r')c+=ch;}
  if(c||r.length){r.push(c);R.push(r);}return R;}
-function poll(){fetch(SRC.poll,{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text();}).then(function(t){
- var R=csv(t),H=R[0],ix={};H.forEach(function(h,i){ix[h]=i;});
- var D=R.slice(1).map(function(r){return {p:r[ix.pollster],m:r[ix.method],n:+r[ix.sample_n],d:r[ix.field_end],a:parseFloat(r[ix.approve]),x:parseFloat(r[ix.disapprove]),u:r[ix.source_url]};})
-  .filter(function(d){return d.d&&!isNaN(d.a)&&!isNaN(d.x);}).sort(function(a,b){return a.d<b.d?-1:1;});
- if(!D.length)throw 0;
- D.forEach(function(d){d.t=Date.parse(d.d)/864e5;});
- var t0=D[0].t,t1=D[D.length-1].t,BW=14;
- function sm(k,t){var s=0,w=0;D.forEach(function(d){var u=(d.t-t)/BW;if(Math.abs(u)<1){var ww=Math.pow(1-Math.abs(u*u*u),3);s+=ww*d[k];w+=ww;}});return w?s/w:null;}
- var la=sm('a',t1),lx=sm('x',t1),pa=sm('a',t1-28),px=sm('x',t1-28),ps={};D.forEach(function(d){ps[d.p]=1;});
- function dl(v,p){if(p==null)return '';var x=v-p;return '4주 전 대비 '+(x>=0?'+':'−')+Math.abs(x).toFixed(1)+'%p';}
- $('pollAs').textContent=D[D.length-1].d+' 조사분까지';
- $('pollK').innerHTML=kpi('긍정 평가(추세)',la.toFixed(1)+'%',dl(la,pa))+kpi('부정 평가(추세)',lx.toFixed(1)+'%',dl(lx,px))+kpi('긍정−부정 격차',(la-lx>=0?'+':'−')+Math.abs(la-lx).toFixed(1)+'%p','추세선 기준')+kpi('수록 조사',N(D.length)+'건','조사기관 '+Object.keys(ps).length+'곳');
- var cw=$('pollC').clientWidth-18,W=Math.max(320,Math.min(920,cw||920)),sm0=W<560,Hh=sm0?300:400,L=sm0?30:38,Rr=sm0?60:96,T=14,B=30,ys=D.map(function(d){return d.a;}).concat(D.map(function(d){return d.x;}));
- var y0=Math.floor((Math.min.apply(0,ys)-3)/10)*10,y1=Math.ceil((Math.max.apply(0,ys)+3)/10)*10;
+function chart(el,D,SR,lab){
+ var cw=el.clientWidth-18,W=Math.max(320,Math.min(920,cw||920)),sm0=W<560,Hh=sm0?300:400,L=sm0?30:38,Rr=sm0?92:132,T=14,B=30,BW=14;
+ var t0=D[0].t,t1=D[D.length-1].t,ys=[];SR.forEach(function(s){D.forEach(function(d){if(d[s.k]!=null)ys.push(d[s.k]);});});
+ var y0=Math.max(0,Math.floor((Math.min.apply(0,ys)-3)/10)*10),y1=Math.ceil((Math.max.apply(0,ys)+3)/10)*10;
+ function sm(k,t){var s=0,w=0;D.forEach(function(d){if(d[k]==null)return;var u=(d.t-t)/BW;if(Math.abs(u)<1){var ww=Math.pow(1-Math.abs(u*u*u),3);s+=ww*d[k];w+=ww;}});return w?s/w:null;}
  function X(t){return L+(t-t0)/(t1-t0||1)*(W-L-Rr);}function Y(v){return T+(1-(v-y0)/(y1-y0))*(Hh-T-B);}
  var o='';for(var g=y0;g<=y1;g+=10)o+='<line x1="'+L+'" x2="'+(W-Rr)+'" y1="'+Y(g)+'" y2="'+Y(g)+'" stroke="var(--line)"/><text x="'+(L-6)+'" y="'+(Y(g)+4)+'" text-anchor="end" font-size="12" fill="var(--muted)">'+g+'</text>';
  var d0=new Date(t0*864e5),m=new Date(Date.UTC(d0.getUTCFullYear(),d0.getUTCMonth()+1,1));
  while(m.getTime()/864e5<=t1){var mx=X(m.getTime()/864e5);o+='<line x1="'+mx+'" x2="'+mx+'" y1="'+(Hh-B)+'" y2="'+(Hh-B+5)+'" stroke="var(--muted)"/><text x="'+mx+'" y="'+(Hh-9)+'" text-anchor="middle" font-size="12" fill="var(--ink2)">'+(m.getUTCMonth()+1)+'월</text>';m=new Date(Date.UTC(m.getUTCFullYear(),m.getUTCMonth()+1,1));}
  o+='<line x1="'+L+'" x2="'+(W-Rr)+'" y1="'+(Hh-B)+'" y2="'+(Hh-B)+'" stroke="var(--muted)"/>';
- [['a','var(--s1)','긍정'],['x','var(--s2)','부정']].forEach(function(s){
-  D.forEach(function(d){o+='<circle class="pt" data-tip="'+esc(d.d+' '+d.p+' · '+s[2]+' '+d[s[0]].toFixed(1)+'%')+'" cx="'+X(d.t).toFixed(1)+'" cy="'+Y(d[s[0]]).toFixed(1)+'" r="'+(sm0?3:4)+'" fill="'+s[1]+'" fill-opacity=".38"/>';});
-  var pth='';for(var t=t0;t<=t1+.01;t+=1){var v=sm(s[0],t);if(v!=null)pth+=(pth?'L':'M')+X(t).toFixed(1)+','+Y(v).toFixed(1);}
-  o+='<path d="'+pth+'" fill="none" stroke="'+s[1]+'" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>';});
- var ya=Y(la),yx=Y(lx);if(Math.abs(ya-yx)<30){var mid=(ya+yx)/2;if(ya<yx){ya=mid-15;yx=mid+15;}else{ya=mid+15;yx=mid-15;}}
- o+='<text x="'+(W-Rr+8)+'" y="'+(ya-2)+'" font-size="12.5" fill="var(--ink2)">긍정</text><text x="'+(W-Rr+8)+'" y="'+(ya+14)+'" font-size="15" font-weight="800" fill="var(--ink)">'+la.toFixed(1)+'%</text>';
- o+='<text x="'+(W-Rr+8)+'" y="'+(yx-2)+'" font-size="12.5" fill="var(--ink2)">부정</text><text x="'+(W-Rr+8)+'" y="'+(yx+14)+'" font-size="15" font-weight="800" fill="var(--ink)">'+lx.toFixed(1)+'%</text>';
- $('pollC').innerHTML='<svg viewBox="0 0 '+W+' '+Hh+'" role="img" aria-label="국정수행 긍정·부정 평가 추이 그래프" style="overflow:visible">'+o+'</svg>';
- var rows=D.slice(-10).reverse().map(function(d){var u=/^https?:\/\//.test(d.u)?'<a href="'+esc(d.u)+'" target="_blank" rel="noopener">출처</a>':'';return '<tr><td>'+esc(d.d)+'</td><td>'+esc(d.p)+'</td><td>'+esc(d.m)+'</td><td>'+(d.n?N(d.n):'')+'</td><td>'+d.a.toFixed(1)+'</td><td>'+d.x.toFixed(1)+'</td><td>'+u+'</td></tr>';}).join('');
- $('pollT').innerHTML='<thead><tr><th>조사 종료일</th><th>조사기관</th><th>방법</th><th>표본</th><th>긍정(%)</th><th>부정(%)</th><th>출처</th></tr></thead><tbody>'+rows+'</tbody>';
+ var ends=[];
+ SR.forEach(function(s){
+  if(s.dots)D.forEach(function(d){if(d[s.k]!=null)o+='<circle class="pt" data-tip="'+esc(d.d+' '+d.p+' · '+s.n+' '+d[s.k].toFixed(1)+'%')+'" cx="'+X(d.t).toFixed(1)+'" cy="'+Y(d[s.k]).toFixed(1)+'" r="'+(sm0?3:4)+'" fill="'+s.c+'" fill-opacity=".34"/>';});
+  var pth='';for(var t=t0;t<=t1+.01;t+=1){var v=sm(s.k,t);if(v!=null)pth+=(pth?'L':'M')+X(t).toFixed(1)+','+Y(v).toFixed(1);}
+  o+='<path d="'+pth+'" fill="none" stroke="'+s.c+'" stroke-width="'+(s.thin?1.8:2.5)+'"'+(s.dash?' stroke-dasharray="5 4"':'')+' stroke-linejoin="round" stroke-linecap="round"/>';
+  var lv=sm(s.k,t1);s.last=lv;s.prev=sm(s.k,t1-28);if(lv!=null)ends.push({s:s,v:lv,y:Y(lv)});});
+ ends.sort(function(a,b){return a.y-b.y;});var gap=sm0?15:17;for(var i=1;i<ends.length;i++)if(ends[i].y-ends[i-1].y<gap)ends[i].y=ends[i-1].y+gap;
+ var over=ends.length?ends[ends.length-1].y-(Hh-B):0;if(over>0)ends.forEach(function(e){e.y-=over;});
+ ends.forEach(function(e){o+='<circle cx="'+(W-Rr+9)+'" cy="'+(e.y)+'" r="4" fill="'+e.s.c+'"/><text x="'+(W-Rr+17)+'" y="'+(e.y+4.5)+'" font-size="'+(sm0?11.5:12.5)+'" fill="var(--ink)"><tspan fill="var(--ink2)">'+esc(sm0&&e.s.sn?e.s.sn:e.s.n)+'</tspan> <tspan font-weight="800">'+e.v.toFixed(1)+'</tspan></text>';});
+ el.innerHTML='<svg viewBox="0 0 '+W+' '+Hh+'" role="img" aria-label="'+lab+'" style="overflow:visible">'+o+'</svg>';}
+function dl(v,p){if(v==null||p==null)return '';var x=v-p;return '4주 전 대비 '+(x>=0?'+':'−')+Math.abs(x).toFixed(1)+'%p';}
+function src(u){return /^https?:\/\//.test(u)?'<a href="'+esc(u)+'" target="_blank" rel="noopener">출처</a>':'';}
+function poll(){fetch(SRC.poll,{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text();}).then(function(t){
+ var R=csv(t),H=R[0],ix={};H.forEach(function(h,i){ix[h]=i;});
+ function num(r,k){var v=parseFloat(r[ix[k]]);return isNaN(v)?null:v;}
+ var A=R.slice(1).filter(function(r){return r.length>5&&r[ix.field_end];}).map(function(r){return {p:r[ix.pollster],m:r[ix.method],n:+r[ix.sample_n],d:r[ix.field_end],t:Date.parse(r[ix.field_end])/864e5,u:r[ix.source_url],
+   a:num(r,'approve'),x:num(r,'disapprove'),dem:num(r,'dem'),ppp:num(r,'ppp'),rb:num(r,'rebuild'),rf:num(r,'reform'),pg:num(r,'progressive'),no:num(r,'none')};}).sort(function(a,b){return a.t-b.t;});
+ var D=A.filter(function(d){return d.a!=null&&d.x!=null;});if(!D.length)throw 0;
+ var S1=[{k:'a',n:'긍정',c:'var(--s1)',dots:1},{k:'x',n:'부정',c:'var(--s2)',dots:1}];
+ chart($('pollC'),D,S1,'국정수행 긍정·부정 평가 추이 그래프');
+ var la=S1[0].last,lx=S1[1].last,ps={};D.forEach(function(d){ps[d.p]=1;});
+ $('pollAs').textContent=D[D.length-1].d+' 조사분까지';
+ $('pollK').innerHTML=kpi('긍정 평가(추세)',la.toFixed(1)+'%',dl(la,S1[0].prev))+kpi('부정 평가(추세)',lx.toFixed(1)+'%',dl(lx,S1[1].prev))+kpi('긍정−부정 격차',(la-lx>=0?'+':'−')+Math.abs(la-lx).toFixed(1)+'%p','추세선 기준')+kpi('수록 조사',N(D.length)+'건','조사기관 '+Object.keys(ps).length+'곳');
+ $('pollT').innerHTML='<thead><tr><th>조사 종료일</th><th>조사기관</th><th>방법</th><th>표본</th><th>긍정(%)</th><th>부정(%)</th><th>출처</th></tr></thead><tbody>'+D.slice(-10).reverse().map(function(d){return '<tr><td>'+esc(d.d)+'</td><td>'+esc(d.p)+'</td><td>'+esc(d.m)+'</td><td>'+(d.n?N(d.n):'')+'</td><td>'+d.a.toFixed(1)+'</td><td>'+d.x.toFixed(1)+'</td><td>'+src(d.u)+'</td></tr>';}).join('')+'</tbody>';
+ /* 정당 지지도 */
+ var P=A.filter(function(d){return d.dem!=null&&d.ppp!=null;});if(!P.length)return;
+ var S2=[{k:'dem',n:'더불어민주당',sn:'민주당',c:'var(--p1)',dots:1},{k:'ppp',n:'국민의힘',c:'var(--p2)',dots:1},{k:'rb',n:'조국혁신당',sn:'혁신당',c:'var(--p3)'},{k:'rf',n:'개혁신당',c:'var(--p4)',thin:1},{k:'no',n:'무당층',c:'var(--p5)',dash:1,thin:1}];
+ chart($('partyC'),P,S2,'정당 지지도 추이 그래프');
+ $('partyLg').innerHTML=S2.map(function(s){return '<span><i'+(s.dash?' class="ds"':'')+' style="background:'+s.c+'"></i>'+s.n+'</span>';}).join('');
+ var ld=S2[0].last,lp=S2[1].last;
+ $('partyK').innerHTML=kpi('더불어민주당(추세)',ld.toFixed(1)+'%',dl(ld,S2[0].prev))+kpi('국민의힘(추세)',lp.toFixed(1)+'%',dl(lp,S2[1].prev))+(function(){var g=Math.round(ld*10)/10-Math.round(lp*10)/10;return kpi('두 정당 격차',Math.abs(g).toFixed(1)+'%p',Math.abs(g)<0.05?'차이 없음':((g>0?'더불어민주당':'국민의힘')+' 우세'));})()+kpi('무당층(추세)',S2[4].last!=null?S2[4].last.toFixed(1)+'%':'-',dl(S2[4].last,S2[4].prev));
+ function c(v){return v==null?'':v.toFixed(1);}
+ $('partyT').innerHTML='<thead><tr><th>조사 종료일</th><th>조사기관</th><th>민주당</th><th>국민의힘</th><th>조국혁신당</th><th>개혁신당</th><th>진보당</th><th>무당층</th><th>출처</th></tr></thead><tbody>'+P.slice(-10).reverse().map(function(d){return '<tr><td>'+esc(d.d)+'</td><td>'+esc(d.p)+'</td><td>'+c(d.dem)+'</td><td>'+c(d.ppp)+'</td><td>'+c(d.rb)+'</td><td>'+c(d.rf)+'</td><td>'+c(d.pg)+'</td><td>'+c(d.no)+'</td><td>'+src(d.u)+'</td></tr>';}).join('')+'</tbody>';
 }).catch(function(){$('pollAs').textContent='불러오지 못함';fail($('pollC'),'자료를 불러오지 못했습니다. 잠시 뒤 새로고침해 주세요.');});}
 
 /* ---------- 청년 이슈 레이더 ---------- */

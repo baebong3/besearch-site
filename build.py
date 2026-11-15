@@ -17,7 +17,7 @@ def year_chart():
         out.append(f'<g class="mk" tabindex="0" data-tip="{yr}년 경기당 평균 {f(v)}명"><rect class="hit" x="{L+i*bw:.1f}" y="{T}" width="{bw:.1f}" height="{H-T-B}"/>'
                    f'<path class="{cls}" d="M{x:.1f},{H-B} V{y+4:.1f} Q{x:.1f},{y:.1f} {x+4:.1f},{y:.1f} H{x+w-4:.1f} Q{x+w:.1f},{y:.1f} {x+w:.1f},{y+4:.1f} V{H-B} Z"/>'
                    f'<title>{yr}년 경기당 평균 {f(v)}명</title></g>')
-        if yr in (2016,2021,2024,2026):
+        if True:
             out.append(f'<text class="val" x="{x+w/2:.1f}" y="{y-7:.1f}" text-anchor="middle">{f(v)}</text>')
         out.append(f'<text class="xl" x="{x+w/2:.1f}" y="{H-9}" text-anchor="middle">{str(yr)[2:]}</text>')
     out.append(f'<line class="axis" x1="{L}" x2="{W-R}" y1="{H-B}" y2="{H-B}"/>')

@@ -169,6 +169,11 @@ a.gc:hover{border-color:var(--acc)}
 .io{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin-top:14px;font-size:14.5px}
 .io dt{font-weight:700;color:var(--acc);white-space:nowrap}
 .io dd{color:var(--ink2)}
+.flow{list-style:none;counter-reset:f;display:grid;gap:10px}
+.flow li{counter-increment:f;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px 13px 52px;position:relative}
+.flow li::before{content:counter(f);position:absolute;left:16px;top:14px;width:24px;height:24px;border-radius:50%;background:var(--acc-s);color:var(--acc);font-weight:800;font-size:13px;display:grid;place-items:center}
+.flow b{display:block;font-size:15px}
+.flow span{font-size:13.5px;color:var(--ink2)}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
 .chips span{font-size:13px;font-weight:700;padding:5px 11px;border-radius:8px;border:1px solid var(--line);background:var(--card)}
 .pj3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
