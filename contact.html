@@ -232,35 +232,11 @@ a.shot:hover{border-color:var(--acc)}
 
 <main><div class="in page">
   <h2>문의</h2>
-  <p class="sub">조사, 보고서 작성, 대시보드 제작 의뢰를 메일로 받습니다. 아래 양식을 채우고 보내기를 누르면 메일 작성 화면이 열립니다.</p>
-  <div class="mailbox"><span>받는 주소</span><b id="addr">mjmg1325@naver.com</b><button type="button" id="copy">주소 복사</button></div>
-  <form class="form" id="f">
-    <div class="row">
-      <label>이름<input name="name" required autocomplete="name"></label>
-      <label>소속<input name="org" autocomplete="organization"></label>
-    </div>
-    <div class="row">
-      <label>회신 연락처<input name="reply" required placeholder="메일 또는 전화번호"></label>
-      <label>의뢰 유형<select name="type">
-        <option>조사 설계·실사</option><option>보고서 작성(HTML·PPT·PDF·HWPX·DOCX)</option><option>정성 인터뷰 정리</option><option>통계 대시보드 제작</option><option>입체(3D) 대시보드</option><option>기타</option></select></label>
-    </div>
-    <label>희망 일정<input name="due" placeholder="예: 12월 둘째 주까지"></label>
-    <label>의뢰 내용<textarea name="msg" required placeholder="보유 자료, 필요한 결과물 형식, 분량 등을 적어 주세요"></textarea></label>
-    <button type="submit">메일 작성 화면 열기</button>
-    <p class="note" id="fb" style="margin:0">메일 앱이 열리지 않으면 위 주소로 직접 보내 주세요. 첨부 자료는 메일에서 추가할 수 있습니다.</p>
-  </form>
-</div>
-<script>
-(function(){var M='mjmg1325@naver.com',f=document.getElementById('f');
-f.addEventListener('submit',function(e){e.preventDefault();var d=new FormData(f);
-var s='[의뢰] '+d.get('type')+' - '+d.get('name')+(d.get('org')?' ('+d.get('org')+')':'');
-var b='이름: '+d.get('name')+'\n소속: '+(d.get('org')||'-')+'\n회신 연락처: '+d.get('reply')+'\n의뢰 유형: '+d.get('type')+'\n희망 일정: '+(d.get('due')||'-')+'\n\n의뢰 내용\n'+d.get('msg');
-location.href='mailto:'+M+'?subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(b);});
-document.getElementById('copy').addEventListener('click',function(){var b=this;
-(navigator.clipboard?navigator.clipboard.writeText(M):Promise.reject()).then(function(){b.textContent='복사됨'},function(){
-var r=document.createRange();r.selectNode(document.getElementById('addr'));var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨'});});
-})();
-</script></main>
+  <p class="sub">조사, 보고서 작성, 대시보드 제작 의뢰를 아래 양식으로 받습니다. 제출하면 담당자에게 바로 전달됩니다.</p>
+  <div class="links" style="margin:0 0 18px"><a href="https://docs.google.com/forms/d/e/1FAIpQLSd7X7seoX8WcJfFqxXcLSFgly9ysC7RdNHq7Gqt484Vh3gnIQ/viewform" target="_blank" rel="noopener">새 창에서 양식 열기</a></div>
+  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd7X7seoX8WcJfFqxXcLSFgly9ysC7RdNHq7Gqt484Vh3gnIQ/viewform?embedded=true" title="의뢰 양식" style="width:100%;max-width:760px;height:1400px;border:1px solid var(--line);border-radius:12px;background:#fff" loading="lazy">양식을 불러오는 중입니다.</iframe>
+  <p class="note">양식이 보이지 않으면 mjmg1325@naver.com 로 메일을 보내 주세요.</p>
+</div></main>
 
 <footer><div class="in">비써치(BeSearch) · <a href="contact.html">문의</a><br>© 2026 BeSearch</div></footer>
 <div id="tip" role="status"></div>

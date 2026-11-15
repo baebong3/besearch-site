@@ -2,7 +2,7 @@
 import base64,os,re,html
 TH='thumbs/'
 MAIL='mjmg1325@naver.com'
-FORM_URL=''
+FORM_URL='https://docs.google.com/forms/d/e/1FAIpQLSd7X7seoX8WcJfFqxXcLSFgly9ysC7RdNHq7Gqt484Vh3gnIQ/viewform'
 t=open('template.html',encoding='utf8').read()
 exec(open('build.py',encoding='utf8').read())
 
