@@ -78,7 +78,7 @@ def map_chart():
 def marquee():
     rs=_json.load(open('regions.json',encoding='utf8')); o=[]
     for n,sd,mt in rs:
-        o.append(f'<figure class="rc"><img loading="lazy" decoding="async" width="210" height="279" src="img/rep/{n}.jpg" alt=""><figcaption><small>{sd}</small>{mt}</figcaption></figure>')
+        o.append(f'<figure class="rc"><img loading="lazy" decoding="async" draggable="false" width="168" height="223" src="img/rep/{n}.jpg" alt=""><figcaption><small>{sd}</small>{mt}</figcaption></figure>')
     return f'<div class="mq" aria-hidden="true"><div class="mqt" id="mqt">{"".join(o)}</div></div>',len(rs)
 
 def table():

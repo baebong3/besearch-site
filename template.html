@@ -264,6 +264,7 @@ a.shot:hover{border-color:var(--acc)}
 .mq:hover .mqt.run{animation-play-state:paused}
 @keyframes mq{to{transform:translateX(-50%)}}
 .rc{flex:0 0 168px;margin:0}
+.rc img,img[src*="traffic-culture"],img[src*="u_traffic"]{pointer-events:none;-webkit-user-drag:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .rc img{display:block;width:168px;height:223px;object-fit:cover;object-position:top;border:1px solid var(--line);border-radius:6px;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.06)}
 .rc figcaption{font-size:13px;font-weight:700;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rc small{font-size:11.5px;font-weight:700;color:var(--acc);margin-right:5px}
@@ -364,7 +365,7 @@ a.shot:hover{border-color:var(--acc)}
       <dl class="io"><dt>예시 1</dt><dd>교통문화지수 지자체 컨설팅 대시보드: 전국 229개 지자체 선택, 3년 추이, 유형화 결과</dd><dt>예시 2</dt><dd>임산물 생산지도: 품목 123종의 시군구별 생산량과 순위</dd></dl>
     </div>
     <div class="shots two">
-      <div class="shot"><img loading="lazy" src="img/traffic-culture.jpg" alt="교통문화지수 지자체 컨설팅 대시보드 화면"><span>교통문화지수 대시보드</span></div>
+      <div class="shot"><img loading="lazy" draggable="false" src="img/traffic-culture.jpg" alt="교통문화지수 지자체 컨설팅 대시보드 화면"><span>교통문화지수 대시보드</span></div>
       <div class="shot"><img loading="lazy" src="img/forest-map.jpg" alt="임산물 생산지도 화면"><span>임산물 생산지도</span></div>
     </div>
   </div>
@@ -399,7 +400,7 @@ a.shot:hover{border-color:var(--acc)}
       <dl class="io"><dt>예시 1</dt><dd>교통문화지수 지자체 컨설팅 보고서: 전국 229개 시군구별 리포트, 대상 선택 후 PDF 내려받기</dd><dt>예시 2</dt><dd>자치구 AI 통합보고서: 서울 25개 자치구별 보고서, 25개 구 전체 인쇄</dd><dt>확장</dt><dd>대상이 1,000곳을 넘는 기관별 리포트도 같은 방식으로 생성</dd></dl>
     </div>
     <div class="shots two">
-      <div class="shot"><img loading="lazy" src="img/traffic-culture.jpg" alt="교통문화지수 지자체 컨설팅 보고서 화면: 시도와 시군구를 선택하는 메뉴와 PDF 다운로드 버튼"><span>229개 시군구별 리포트</span></div>
+      <div class="shot"><img loading="lazy" draggable="false" src="img/traffic-culture.jpg" alt="교통문화지수 지자체 컨설팅 보고서 화면: 시도와 시군구를 선택하는 메뉴와 PDF 다운로드 버튼"><span>229개 시군구별 리포트</span></div>
       <div class="shot"><img loading="lazy" src="img/gu-report.jpg" alt="자치구 AI 통합보고서 화면: 자치구 선택 메뉴와 25개 구 전체 인쇄 버튼"><span>25개 자치구별 보고서</span></div>
     </div>
   </div>
