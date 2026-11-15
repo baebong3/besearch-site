@@ -159,6 +159,12 @@ a.gc:hover{border-color:var(--acc)}
 .pil b{display:block;font-size:19px;font-weight:800;letter-spacing:-.02em;margin-top:4px}
 .pil em{display:inline-block;font-style:normal;font-size:13px;font-weight:700;color:var(--acc);background:var(--acc-s);border-radius:999px;padding:2px 10px;margin:8px 0 8px}
 .pil p{font-size:14px;color:var(--ink2);max-width:none}
+.bulk{display:grid;grid-template-columns:auto auto 1fr;gap:10px 26px;align-items:center;margin-top:12px;background:var(--acc);color:var(--bg);border-radius:14px;padding:18px 24px}
+.bulk .bn b{display:block;font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1.15;font-variant-numeric:tabular-nums}
+.bulk .bn small{font-size:15px;font-weight:700;margin-left:3px}
+.bulk .bn span{font-size:13.5px;font-weight:700;opacity:.9}
+.hero .bulk p{font-size:14.5px;color:inherit;opacity:.95;max-width:none;line-height:1.6}
+.bulk strong{font-weight:800}
 .show{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:40px}
 .frame{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
 .frame .bar{display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:13px;font-weight:700;color:var(--ink2)}
@@ -206,6 +212,8 @@ a.shot:hover{border-color:var(--acc)}
 .cta .btn.g{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 55%,transparent)}
 @media (max-width:820px){
   .show,.cap-row,.pil{grid-template-columns:1fr}
+  .bulk{grid-template-columns:1fr 1fr;padding:16px 18px}
+  .bulk p{grid-column:1/-1}
   .pj3{grid-template-columns:1fr}
   .cap-row.rev .tx{order:0}
   .cap-row{gap:18px;padding:26px 0}
@@ -260,6 +268,11 @@ a.shot:hover{border-color:var(--acc)}
     <div><span>01</span><b>기존 양식의 보고서</b><em>HWPX · PPT · DOCX</em><p>기관에서 쓰는 한글, 파워포인트, 워드 양식 그대로 작성. 제안서 PPT도 제작</p></div>
     <div><span>02</span><b>새로운 양식의 보고서</b><em>HTML · PDF</em><p>웹에서 바로 열리고 그래프가 움직이는 보고서, 인쇄와 배포용 PDF</p></div>
     <div><span>03</span><b>대시보드 형태</b><em>3D 적용</em><p>지역, 연도, 항목을 골라 보는 통계 대시보드. 입체 그래프와 움직임 적용</p></div>
+  </div>
+  <div class="bulk">
+    <div class="bn"><b>240<small>여 개</small></b><span>자치구별 리포트</span></div>
+    <div class="bn"><b>1,000<small>여 개</small></b><span>기관별 리포트</span></div>
+    <p><strong>조사 대상이 많을수록 유리합니다.</strong> 같은 틀에 대상별 수치만 바꿔 자치구별, 기관별 리포트를 한 번에 생성하도록 설계되어 있습니다. 대상이 수백, 수천 곳이어도 리포트마다 수치와 문장이 자동으로 채워집니다.</p>
   </div>
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px"><a class="btn p" href="contact.html">의뢰하기</a><a class="btn" href="#can">할 수 있는 일</a><a class="btn" href="examples.html">예시 전체 보기</a></div>
   <div class="show">
@@ -354,6 +367,18 @@ a.shot:hover{border-color:var(--acc)}
       <li><b>검토·수정</b><span>요구 사항 누락 여부를 대조하고 의견을 받아 수정</span></li>
     </ol>
   </div>
+
+  <div class="cap-row rev">
+    <div class="tx"><div class="step">06 · 대상별 리포트 대량 생성</div>
+      <h3>자치구 240여 곳, 기관 1,000여 곳의 리포트도 한 번에 생성</h3>
+      <p>조사 대상이 많을 때 강합니다. 한 번 만든 틀에 대상별 수치를 넣어, 지역이나 기관마다 순위, 등급, 추이, 해석 문장이 다른 리포트를 자동으로 만듭니다. 화면에서 대상을 골라 보고 PDF로 내려받거나, 전체를 한꺼번에 인쇄할 수 있습니다.</p>
+      <dl class="io"><dt>예시 1</dt><dd>교통문화지수 지자체 컨설팅 보고서: 전국 229개 시군구별 리포트, 대상 선택 후 PDF 내려받기</dd><dt>예시 2</dt><dd>자치구 AI 통합보고서: 서울 25개 자치구별 보고서, 25개 구 전체 인쇄</dd><dt>확장</dt><dd>대상이 1,000곳을 넘는 기관별 리포트도 같은 방식으로 생성</dd></dl>
+    </div>
+    <div class="shots two">
+      <div class="shot"><img loading="lazy" src="img/traffic-culture.jpg" alt="교통문화지수 지자체 컨설팅 보고서 화면: 시도와 시군구를 선택하는 메뉴와 PDF 다운로드 버튼"><span>229개 시군구별 리포트</span></div>
+      <div class="shot"><img loading="lazy" src="img/gu-report.jpg" alt="자치구 AI 통합보고서 화면: 자치구 선택 메뉴와 25개 구 전체 인쇄 버튼"><span>25개 자치구별 보고서</span></div>
+    </div>
+  </div>
 </div></section>
 
 <section id="work"><div class="in">
@@ -433,7 +458,8 @@ a.shot:hover{border-color:var(--acc)}
   <dl class="info" style="margin-top:14px;max-width:760px">
     <dt>기존 양식 보고서</dt><dd>HWPX, PPT, DOCX 등 기관에서 쓰는 양식 그대로 작성 (제안서 PPT 포함)</dd>
     <dt>새로운 양식 보고서</dt><dd>HTML, PDF 등 웹에서 바로 열리는 시각화 보고서</dd>
-    <dt>대시보드</dt><dd>통계 대시보드 제작, 입체(3D) 그래프와 움직임 적용</dd><dt>상호</dt><dd>비써치(BeSearch)</dd><dt>업종</dt><dd>시장조사 및 여론조사업, 전자상거래 소매업, 기타 인문 및 사회과학 연구개발업</dd></dl>
+    <dt>대시보드</dt><dd>통계 대시보드 제작, 입체(3D) 그래프와 움직임 적용</dd>
+    <dt>대량 리포트</dt><dd>자치구 240여 곳, 기관 1,000여 곳 등 대상별 리포트를 한 번에 생성</dd><dt>상호</dt><dd>비써치(BeSearch)</dd><dt>업종</dt><dd>시장조사 및 여론조사업, 전자상거래 소매업, 기타 인문 및 사회과학 연구개발업</dd></dl>
 </div></section>
 </main>
 
