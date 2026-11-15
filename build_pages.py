@@ -83,14 +83,13 @@ body=f'''<div class="in page">
 document.querySelectorAll('.filt button').forEach(function(x){{x.classList.toggle('on',x===b)}});
 document.querySelectorAll('.gs').forEach(function(s){{s.style.display=(!b.dataset.f||s.dataset.c===b.dataset.f)?'':'none'}});}});}});</script>'''
 open('examples.html','w',encoding='utf8').write(page('예시',body))
-# 첫 화면 예시: 화면 전체 캡처 대신 대시보드마다 대표 그래프·그림 한 개
-PICK=[('edu_0','평생학습 실태 대시보드','삽화와 핵심 요약'),('korail_0','한국철도공사 서비스 품질 현황','머리 그림'),('fruit_0','농산물 가격동향','장보기 지수 계기판'),
-      ('flow_0','국민여행조사 여행 흐름 지도','시도 간 이동 흐름'),('rank_2','방한 시장 순위 변화','연도별 순위 변화선'),('poll_0','여론조사 종합 추세','긍정·부정 추세선'),
-      ('ocean_2','해양산업 생태계 현황판','기관·사업 연결망'),('sandan_0','국가산단 산업동향 현황판','단지별 생산 지도'),('mice_0','MICE 산업 뉴스 동향','분류별 뉴스 카드'),
-      ('forest_0','임산물 수급 동향','머리 그림'),('lodging_1','숙박 통계 종합 대시보드','연도별 개폐업 막대'),('travel_3','국민여행조사 데이터 대시보드','연도별 비교 막대')]
+# 첫 화면 예시: 대시보드마다 제목·설명·단위·그래프가 함께 있는 카드 한 개, 아래에는 관련 조사·용역 이름
+PICK=[('edu','평생학습 개인실태조사','결과 대시보드'),('korail','한국철도공사 서비스 품질평가','서비스 품질 현황 대시보드'),('flow','국민여행조사','시도 간 여행 흐름 지도'),
+      ('lodging','관광숙박 수급분석 데이터 조사','숙박 통계 종합 대시보드'),('rank','외래관광객조사','방한 시장 순위 변화'),('ocean','해양 환경 및 레저·관광 산업 고도화 전략 연구','산업생태계 현황판'),
+      ('travel','국민여행조사','데이터 대시보드'),('sandan','국가산업단지 산업동향','산업동향 현황판'),('poll','전국 여론조사 종합','국정수행 평가 추세')]
 hg=''
 for k,title,what in PICK:
-    hg+=f'<div class="pk"><div class="pv{" wide" if k in ("korail_0","forest_0") else ""}"><img loading="lazy" alt="{html.escape(title)}의 {what}" src="img/pick/{k}.jpg"></div><div class="pt2"><b>{html.escape(title)}</b><span>{what}</span></div></div>'
+    hg+=f'<div class="pk"><div class="pv"><img loading="lazy" alt="{html.escape(title)} {what}의 그래프" src="img/pick2/{k}.jpg"></div><div class="pt2"><b>{html.escape(title)}</b><span>{what}</span></div></div>'
 ix=open('index.html',encoding='utf8').read().replace('{{HOME_GAL}}',hg).replace('{{EX_N}}',str(len(EX)))
 open('index.html','w',encoding='utf8').write(ix)
 
