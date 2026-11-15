@@ -9,7 +9,7 @@ exec(open('build.py',encoding='utf8').read())
 # ---------- 공통 머리/꼬리 ----------
 HEAD=t[:t.index('<main id="top">')]; TAIL=t[t.index('<footer>'):]
 def page(title,body):
-    h=HEAD.replace('<title>비써치 BeSearch | 조사·데이터 분석</title>',f'<title>{title} | 비써치 BeSearch</title>')
+    h=HEAD.replace('<title>비써치 BeSearch | 데이터 시각화 보고서 제작</title>',f'<title>{title} | 비써치 BeSearch</title>')
     return h+'<main>'+body+'</main>\n\n'+TAIL
 
 # ---------- 예시 모음 ----------
