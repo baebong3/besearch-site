@@ -187,6 +187,8 @@ main>section .sub,.page>.sub{font-size:17px;margin-bottom:34px}
 .sv h3,.svh h3{letter-spacing:-.02em}
 @media (max-width:820px){main>section{padding:52px 0}main>section .sub,.page>.sub{font-size:15.5px;margin-bottom:24px}}
 @media (max-width:560px){header .in{height:auto;flex-wrap:wrap;padding-top:10px;padding-bottom:6px;gap:2px}nav{width:100%;justify-content:space-between}nav a{padding:7px 4px;font-size:13.5px}.lang{margin-left:0}}
+.hero p.lead1{max-width:none}
+@media (min-width:1040px){.hero p.lead1 span{white-space:nowrap}}
 #tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12.5px;font-weight:600;padding:6px 10px;border-radius:7px;opacity:0;transition:opacity .1s;white-space:nowrap}
 
 @media (max-width:1000px){.svc{grid-template-columns:1fr 1fr}}
@@ -343,9 +345,8 @@ a.shot:hover{border-color:var(--acc)}
 
 <main id="top">
 <div class="in hero">
-  <div class="eyebrow">Data visualization reports</div>
   <h1><span>We visualize your data,</span> <span><em>simply and fast</em></span></h1>
-  <p>Just send us your material. We turn statistics, survey results and interview transcripts into reports and dashboards, quickly.<br>BeSearch is a Korean studio that specializes in data visualization reports.</p>
+  <p class="lead1"><span>Just send us your material. We turn statistics, survey results and interview transcripts into reports and dashboards, quickly.</span><br>BeSearch is a Korean studio that specializes in data visualization reports.</p>
   <div class="pil">
     <div><span>01</span><b>Reports in familiar formats</b><em>HWPX · PPT · DOCX</em><p>Written in the formats your organization already uses: Hangul (HWPX), PowerPoint and Word. Proposal decks too.</p></div>
     <div><span>02</span><b>Reports in new formats</b><em>HTML · PDF</em><p>Reports that open in a browser with interactive charts, plus PDF for print and distribution.</p></div>

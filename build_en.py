@@ -29,8 +29,8 @@ T = {
  # 첫 화면
  '데이터 시각화 보고서 제작 전문': 'Data visualization reports',
  '<h1><span>데이터를 <em>쉽고 빠르게</em></span> <span>시각화해드립니다</span></h1>': '<h1><span>We visualize your data,</span> <span><em>simply and fast</em></span></h1>',
- '<p>자료만 보내 주시면 됩니다. 통계자료, 조사 결과, 인터뷰 스크립트를 받아 보고서와 대시보드로 빠르게 만들어 드립니다.<br>비써치는 데이터 시각화 보고서 제작 전문 기업입니다.</p>':
-   '<p>Just send us your material. We turn statistics, survey results and interview transcripts into reports and dashboards, quickly.<br>BeSearch is a Korean studio that specializes in data visualization reports.</p>',
+ '<p class="lead1"><span>자료만 보내 주시면 됩니다. 통계자료, 조사 결과, 인터뷰 스크립트를 받아 보고서와 대시보드로 빠르게 만들어 드립니다.</span><br>비써치는 데이터 시각화 보고서 제작 전문 기업입니다.</p>':
+   '<p class="lead1"><span>Just send us your material. We turn statistics, survey results and interview transcripts into reports and dashboards, quickly.</span><br>BeSearch is a Korean studio that specializes in data visualization reports.</p>',
  '기존 양식의 보고서': 'Reports in familiar formats',
  '기관에서 쓰는 한글, 파워포인트, 워드 양식 그대로 작성. 제안서 PPT도 제작': 'Written in the formats your organization already uses: Hangul (HWPX), PowerPoint and Word. Proposal decks too.',
  '새로운 양식의 보고서': 'Reports in new formats',
