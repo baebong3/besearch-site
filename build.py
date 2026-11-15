@@ -76,12 +76,9 @@ def map_chart():
     return f'<div class="mapw"><svg id="mapS" viewBox="{m["viewBox"]}" role="img" aria-label="시도별 2026 홈경기 총관중 지도">{"".join(o)}</svg><ol class="mapl" id="mapL">{rows}</ol></div>'
 
 def marquee():
-    import hashlib
     rs=_json.load(open('regions.json',encoding='utf8')); o=[]
-    for r in rs:
-        sd,nm=r.split(' ',1); h=hashlib.md5(r.encode()).digest()
-        bars=''.join(f'<i style="height:{22+h[k]%70}%"></i>' for k in range(5))
-        o.append(f'<div class="rc"><small>{sd}</small><b>{nm}</b><div class="rb">{bars}</div><div class="rl"><u style="width:{55+h[6]%40}%"></u><u style="width:{35+h[7]%45}%"></u></div><em>PDF</em></div>')
+    for n,sd,mt in rs:
+        o.append(f'<figure class="rc"><img loading="lazy" decoding="async" width="210" height="279" src="img/rep/{n}.jpg" alt=""><figcaption><small>{sd}</small>{mt}</figcaption></figure>')
     return f'<div class="mq" aria-hidden="true"><div class="mqt" id="mqt">{"".join(o)}</div></div>',len(rs)
 
 def table():
