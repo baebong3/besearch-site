@@ -84,9 +84,9 @@ document.querySelectorAll('.filt button').forEach(function(x){{x.classList.toggl
 document.querySelectorAll('.gs').forEach(function(s){{s.style.display=(!b.dataset.f||s.dataset.c===b.dataset.f)?'':'none'}});}});}});</script>'''
 open('examples.html','w',encoding='utf8').write(page('예시',body))
 # 첫 화면 예시: 대시보드마다 제목·설명·단위·그래프가 함께 있는 카드 한 개, 아래에는 관련 조사·용역 이름
-PICK=[('edu','평생학습 개인실태조사','결과 대시보드'),('korail','한국철도공사 서비스 품질평가','서비스 품질 현황 대시보드'),('flow','국민여행조사','시도 간 여행 흐름 지도'),
-      ('lodging','관광숙박 수급분석 데이터 조사','숙박 통계 종합 대시보드'),('rank','외래관광객조사','방한 시장 순위 변화'),('ocean','해양 환경 및 레저·관광 산업 고도화 전략 연구','산업생태계 현황판'),
-      ('travel','국민여행조사','데이터 대시보드'),('sandan','국가산업단지 산업동향','산업동향 현황판'),('poll','전국 여론조사 종합','국정수행 평가 추세')]
+PICK=[('edu','평생학습 개인실태조사','집단 간 차이 점 그래프'),('korail','한국철도공사 서비스 품질평가','점수 추이 꺾은선'),('flow','국민여행조사','시도 간 여행 흐름 지도'),
+      ('lodging','관광숙박 수급분석 데이터 조사','수급 사분면 산점도'),('rank','외래관광객조사','방한 시장 순위 변화선'),('rnd','연구산업 실태조사','인력 구성 도넛'),
+      ('casino','카지노 이용실태조사','단계별 누적 막대와 표'),('pharm','공공심야약국 운영 현황','시간대별 다중 꺾은선'),('rnd2','연구자 대상 연구산업 실태조사','요인별 영향 구간 그래프')]
 hg=''
 for k,title,what in PICK:
     hg+=f'<div class="pk"><div class="pv"><img loading="lazy" alt="{html.escape(title)} {what}의 그래프" src="img/pick2/{k}.jpg"></div><div class="pt2"><b>{html.escape(title)}</b><span>{what}</span></div></div>'
