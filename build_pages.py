@@ -83,7 +83,7 @@ document.querySelectorAll('.filt button').forEach(function(x){{x.classList.toggl
 document.querySelectorAll('.gs').forEach(function(s){{s.style.display=(!b.dataset.f||s.dataset.c===b.dataset.f)?'':'none'}});}});}});</script>'''
 open('examples.html','w',encoding='utf8').write(page('예시',body))
 # 첫 화면 예시 띠
-PICK=['u_traffic','r_forest','r_forestmap','a_GWDtKaT8ct8iyNheWrExJC','a_FZdLk6sk2TXah7ehK5M7xe','a_AxwtS8vR3UDjcVv1LxLvcj','a_2wo9xhYeDnZwhSGf2qdmx1','a_YSNsnuApQ25zAXJLwkt3T2','a_VauRA9WZB8gC1EZ5aUw5Sq','r_medtour','r_mice','a_Husc7r3XTX5AgnXKdab4dG']
+PICK=['u_traffic','r_forest','r_forestmap','a_GWDtKaT8ct8iyNheWrExJC','a_FZdLk6sk2TXah7ehK5M7xe','a_AxwtS8vR3UDjcVv1LxLvcj','a_2wo9xhYeDnZwhSGf2qdmx1','a_YSNsnuApQ25zAXJLwkt3T2','a_VauRA9WZB8gC1EZ5aUw5Sq','r_mice','a_DZQepgNkbYgW6yLNwQqoJp','a_Husc7r3XTX5AgnXKdab4dG']
 by={e[0]:e for e in EX}; hg=''
 for k in PICK:
     th,title,cat,link=by[k]
