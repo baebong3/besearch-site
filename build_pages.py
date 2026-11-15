@@ -13,7 +13,7 @@ def page(title,body):
     return h+'<main>'+body+'</main>\n\n'+TAIL
 
 # ---------- 예시 모음 ----------
-D,R,I,T='통계 대시보드','보고서·브리프','이슈 레이더·자동 수집','조사 도구·지도'
+D,R,I,T='통계 대시보드','보고서·브리프','뉴스 동향·자동 수집','조사 도구·지도'
 G='https://baebong3.github.io/'
 EX=[ # (썸네일, 제목, 분류, 링크)
 ('r_kbo2','KBO 관중 분석 콘솔 2016~2026',D,''),
@@ -49,12 +49,12 @@ EX=[ # (썸네일, 제목, 분류, 링크)
 ('r_kborep','KBO 월간 관중 리포트',R,''),
 ('r_bizrep','소상공인 정책 여론 브리프',R,''),
 ('a_42euZ698iwt7f2TDctChqj','AHP 가중치 계산법',R,''),
-('r_medtour','의료관광·웰니스 이슈 레이더',I,''),
-('r_mice','MICE 이슈 레이더',I,''),
-('r_youth2','청년정책 이슈 레이더',I,''),
+('r_medtour','의료관광·웰니스 뉴스 동향',I,''),
+('r_mice','MICE 산업 뉴스 동향',I,''),
+('r_youth2','청년정책 뉴스 동향',I,''),
 ('r_youth','청년정책 분석·평가 콘솔',I,''),
-('r_biz','소상공인 정책 레이더',I,''),
-('r_forest','임산물 수급 레이더',I,''),
+('r_biz','소상공인 정책 동향',I,''),
+('r_forest','임산물 수급 동향',I,''),
 ('r_fruitrecipe','농산물 가격 기반 오늘의 알뜰 요리',I,G+'fruitbasket/recipes.html'),
 ('r_forestmap','임산물 생산지도',T,''),
 ('a_VauRA9WZB8gC1EZ5aUw5Sq','국민여행조사 시도 간 여행 흐름 지도',T,''),
@@ -74,7 +74,7 @@ secs=''.join(f'<div class="gs" data-c="{c}"><h3 class="gh">{c} <span style="font
 btn='<button class="on" data-f="">전체 '+str(len(EX))+'</button>'+''.join(f'<button data-f="{c}">{c}</button>' for c in cards)
 body=f'''<div class="in page">
   <h2>예시</h2>
-  <p class="sub">HTML 화면으로 구현한 대시보드, 보고서, 이슈 레이더, 조사 도구 {len(EX)}건의 첫 화면. "열기"가 표시된 항목만 실제 화면으로 연결되고, 나머지는 캡처 화면으로 게재함.</p>
+  <p class="sub">HTML 화면으로 구현한 대시보드, 보고서, 뉴스 동향, 조사 도구 {len(EX)}건의 첫 화면. "열기"가 표시된 항목만 실제 화면으로 연결되고, 나머지는 캡처 화면으로 게재함.</p>
   <div class="filt">{btn}</div>
   {secs}
 </div>
@@ -137,5 +137,5 @@ open('contact.html','w',encoding='utf8').write(page('문의',body))
 print('pages ok',os.path.getsize('examples.html')//1024,'KB',len(EX))
 
 # ---------- 매일 서비스 ----------
-open('daily.html','w',encoding='utf8').write(page('매일 서비스',open('daily_body.html',encoding='utf8').read()))
+open('daily.html','w',encoding='utf8').write(page('일일 동향 자료',open('daily_body.html',encoding='utf8').read()))
 print('daily ok')
