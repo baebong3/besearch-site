@@ -16,6 +16,7 @@ def page(title,body):
 D,R,I,T='통계 대시보드','보고서·브리프','뉴스 동향·자동 수집','조사 도구·지도'
 G='https://baebong3.github.io/'
 EX=[ # (썸네일, 제목, 분류, 링크)
+('a_AxwtS8vR3UDjcVv1LxLvcj','한국철도공사 서비스 품질 현황 대시보드',D,''),
 ('r_kbo2','KBO 관중 분석 콘솔 2016~2026',D,''),
 ('r_kbo1','KBO 관중 분석 콘솔 2025~2026',D,''),
 ('r_kbo3','KBO 포스트시즌 관중 분석',D,''),
@@ -26,7 +27,6 @@ EX=[ # (썸네일, 제목, 분류, 링크)
 ('a_FZdLk6sk2TXah7ehK5M7xe','국민여행조사 데이터 대시보드',D,''),
 ('a_S3PMk1DyCqyG64MSCZyyWm','연구산업 실태조사 대시보드',D,''),
 ('a_R9kpc3pdhMvBD5T4fTcj8a','연구산업 실태조사 결과 대시보드(예시)',D,''),
-('a_AxwtS8vR3UDjcVv1LxLvcj','한국철도공사 서비스 품질 현황 대시보드',D,''),
 ('a_V3EaZwxGjiUucxhzZ5Wozs','숙박 통계 종합 대시보드',D,''),
 ('a_XK1xNbKN6bNjaVo6hy6Rmb','관광숙박 수급 대시보드',D,''),
 ('a_RYbegj69RkPmyYQTDzD4Uq','방한 의료관광 통계 대시보드',D,''),
@@ -83,7 +83,7 @@ document.querySelectorAll('.filt button').forEach(function(x){{x.classList.toggl
 document.querySelectorAll('.gs').forEach(function(s){{s.style.display=(!b.dataset.f||s.dataset.c===b.dataset.f)?'':'none'}});}});}});</script>'''
 open('examples.html','w',encoding='utf8').write(page('예시',body))
 # 첫 화면 예시 띠
-PICK=['u_traffic','r_forest','r_forestmap','a_GWDtKaT8ct8iyNheWrExJC','a_FZdLk6sk2TXah7ehK5M7xe','a_AxwtS8vR3UDjcVv1LxLvcj','a_2wo9xhYeDnZwhSGf2qdmx1','a_YSNsnuApQ25zAXJLwkt3T2','a_VauRA9WZB8gC1EZ5aUw5Sq','r_mice','a_DZQepgNkbYgW6yLNwQqoJp','a_Husc7r3XTX5AgnXKdab4dG']
+PICK=['a_AxwtS8vR3UDjcVv1LxLvcj','r_forest','r_mice','r_forestmap','a_YSNsnuApQ25zAXJLwkt3T2','a_VauRA9WZB8gC1EZ5aUw5Sq','a_2wo9xhYeDnZwhSGf2qdmx1','u_traffic','a_GWDtKaT8ct8iyNheWrExJC','a_FZdLk6sk2TXah7ehK5M7xe','a_DZQepgNkbYgW6yLNwQqoJp','a_Husc7r3XTX5AgnXKdab4dG']
 by={e[0]:e for e in EX}; hg=''
 for k in PICK:
     th,title,cat,link=by[k]
