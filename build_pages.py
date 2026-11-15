@@ -2,6 +2,7 @@
 import base64,os,re,html
 TH='thumbs/'
 MAIL='mjmg1325@naver.com'
+FORM_URL=''
 t=open('template.html',encoding='utf8').read()
 exec(open('build.py',encoding='utf8').read())
 
@@ -122,5 +123,15 @@ document.getElementById('copy').addEventListener('click',function(){{var b=this;
 var r=document.createRange();r.selectNode(document.getElementById('addr'));var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨'}});}});
 }})();
 </script>'''
+# 구글 폼 주소를 FORM_URL에 넣으면 문의 페이지가 폼 연결형으로 바뀜 (예: https://docs.google.com/forms/d/e/.../viewform)
+if FORM_URL:
+    emb=FORM_URL+('&' if '?' in FORM_URL else '?')+'embedded=true'
+    body=f'''<div class="in page">
+  <h2>문의</h2>
+  <p class="sub">조사, 보고서 작성, 대시보드 제작 의뢰를 아래 양식으로 받습니다. 제출하면 담당자에게 바로 전달됩니다.</p>
+  <div class="links" style="margin:0 0 18px"><a href="{FORM_URL}" target="_blank" rel="noopener">새 창에서 양식 열기</a></div>
+  <iframe src="{emb}" title="의뢰 양식" style="width:100%;max-width:760px;height:1400px;border:1px solid var(--line);border-radius:12px;background:#fff" loading="lazy">양식을 불러오는 중입니다.</iframe>
+  <p class="note">양식이 보이지 않으면 {MAIL} 로 메일을 보내 주세요.</p>
+</div>'''
 open('contact.html','w',encoding='utf8').write(page('문의',body))
 print('pages ok',os.path.getsize('examples.html')//1024,'KB',len(EX))

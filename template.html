@@ -148,8 +148,6 @@ a.gc:hover{border-color:var(--acc)}
 .show{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:40px}
 .frame{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
 .frame .bar{display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:13px;font-weight:700;color:var(--ink2)}
-.frame .bar i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
-.frame .bar span{margin-left:6px}
 .frame .bd{padding:14px 16px 16px;flex:1}
 .frame img{display:block;width:100%;height:auto}
 .frame img+img{border-top:1px solid var(--line)}
@@ -197,6 +195,32 @@ a.shot:hover{border-color:var(--acc)}
 .isom .tb{height:12px}
 .isom .tb i{border-radius:0;box-shadow:3px 3px 0 #17504C}
 .isom li:first-child .tb i{background:#D9703F;box-shadow:3px 3px 0 #A9502A}
+
+.show{align-items:start}
+.frame .bar .dot{width:11px;height:11px;border-radius:50%;border:0;padding:0;background:var(--line);cursor:pointer;position:relative}
+.frame .bar .dot::after{content:"";position:absolute;inset:-8px}
+.frame .bar .dot.on{background:var(--acc)}
+.frame .bar .ttl{margin-left:6px}
+.ph{font-size:15px}
+.pc2{padding:12px 16px 14px;font-size:13.5px;color:var(--ink2);border-top:1px solid var(--line)}
+.pc2 b{display:block;font-size:15px;color:var(--ink);margin-bottom:2px}
+.mapw{display:grid;grid-template-columns:1.05fr 1fr;gap:10px;align-items:center;margin:6px 0}
+#mapS{max-height:400px}
+.rg{stroke:var(--card);stroke-width:1;transform-box:fill-box;transform-origin:center}
+.rg.nv{fill:var(--line)}
+.mapl{list-style:none;font-size:13px}
+.mapl li{display:grid;grid-template-columns:18px 34px 1fr auto;gap:6px;align-items:center;padding:6px 4px;border-bottom:1px solid var(--line);transition:opacity .3s}
+.mapl li.dim{opacity:.28}
+.mapl i{font-style:normal;font-weight:700;color:var(--muted);font-size:12px}
+.mapl span{color:var(--muted);font-size:12px}
+.mapl em{font-style:normal;font-weight:700;font-variant-numeric:tabular-nums}
+.h0{fill:var(--line);opacity:.5}
+.pc{transform-box:fill-box;transform-origin:center}
+.hx{font:600 12px var(--sans);fill:var(--muted)}
+.hy{font:600 12.5px var(--sans);fill:var(--ink2)}
+.hv{font:700 12px var(--sans);font-variant-numeric:tabular-nums}
+#heatC{color:var(--acc);margin-left:6px}
+@media (max-width:640px){.mapw{grid-template-columns:1fr}#mapS{max-height:300px}}
 @media (prefers-reduced-motion:reduce){.tilt div{transition:none}}
 </style>
 </head>
@@ -213,20 +237,34 @@ a.shot:hover{border-color:var(--acc)}
   <p>비써치는 데이터와 인터뷰 자료를 받아 보고서와 통계 대시보드로 제작합니다.<br>HTML, PPT, PDF, HWPX, DOCX 가운데 필요한 형식으로 납품합니다.</p>
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:26px"><a class="btn p" href="contact.html">의뢰하기</a><a class="btn" href="#can">할 수 있는 일</a><a class="btn" href="examples.html">예시 전체 보기</a></div>
   <div class="show">
-    <div class="frame" id="isoCard">
-      <div class="bar"><i></i><i></i><i></i><span>입체(3D) 대시보드 예시</span><button class="replay" type="button" id="isoRe" hidden>다시 재생</button></div>
+    <div class="frame" id="carL" data-car>
+      <div class="bar"><button type="button" class="dot on" data-i="0" aria-label="입체 막대 예시"></button><button type="button" class="dot" data-i="1" aria-label="지도 예시"></button><button type="button" class="dot" data-i="2" aria-label="히트맵 예시"></button><span class="ttl">입체(3D)·모션 대시보드 예시</span><button class="replay" type="button" id="isoRe" hidden>다시 재생</button></div>
       <div class="bd">
-        <h4 style="font-size:15px">2026 구단별 홈경기 평균 관중</h4>
-        <div class="cap2" style="margin:0 0 4px">단위: 명 · KBO 정규시즌 720경기</div>
-        <div class="iso">{{ISO_CHART}}</div>
-        <ul class="teams isom">{{TEAM_ROWS}}</ul>
+        <div data-p="0">
+          <h4 class="ph">입체 막대 · 2026 구단별 홈경기 평균 관중</h4>
+          <div class="cap2">단위: 명 · KBO 정규시즌 720경기</div>
+          <div class="iso">{{ISO_CHART}}</div>
+          <ul class="teams isom">{{TEAM_ROWS}}</ul>
+        </div>
+        <div data-p="1" hidden>
+          <h4 class="ph">지도 · 시도별 2026 홈경기 총관중</h4>
+          <div class="cap2">단위: 명 · 홈구단 연고지 기준, 큰 값부터 지도에 맞춰짐</div>
+          {{MAP_CHART}}
+          <div class="cap2">지도 경계: @svg-maps/south-korea (CC BY 4.0)</div>
+        </div>
+        <div data-p="2" hidden>
+          <h4 class="ph">히트맵 · 구단별 연도별 경기당 평균 관중</h4>
+          <div class="cap2">단위: 천 명 · 낮은 값부터 한 칸씩 열림 <b id="heatC"></b></div>
+          {{HEAT_CHART}}
+        </div>
         <div class="tilt"><div><span>총관중</span><b>1,277만</b></div><div><span>경기당 평균</span><b>17,737</b></div><div><span>홈 평균 1위</span><b>삼성</b></div></div>
       </div>
     </div>
-    <div class="frame">
-      <div class="bar"><i></i><i></i><i></i><span>임산물 가격·수급 동향 대시보드</span></div>
-      <img src="img/forest.jpg" alt="임산물 수급 레이더 화면: 밤, 호두, 대추, 표고버섯, 떫은감의 가격 전망과 생산·수출입 수치">
-      <img src="img/forest-map.jpg" alt="임산물 생산지도 화면: 품목별 시군구 생산량과 주 생산지 순위">
+    <div class="frame" id="carR" data-car>
+      <div class="bar"><button type="button" class="dot on" data-i="0" aria-label="임산물 대시보드"></button><button type="button" class="dot" data-i="1" aria-label="교통문화지수 대시보드"></button><button type="button" class="dot" data-i="2" aria-label="외래관광객조사 대시보드"></button><span class="ttl">대시보드 예시</span></div>
+      <div data-p="0"><img src="img/forest.jpg" alt="임산물 수급 레이더 화면: 밤, 호두, 대추, 표고버섯, 떫은감의 가격 전망과 생산·수출입 수치"><p class="pc2"><b>임산물 가격·수급 동향</b>품목별 가격 전망, 생산·수출입 수치, 관련 뉴스를 매일 수집해 한 화면에 정리</p></div>
+      <div data-p="1" hidden><img src="img/traffic-culture.jpg" alt="교통문화지수 지자체 컨설팅 대시보드 화면"><p class="pc2"><b>교통문화지수 지자체 컨설팅</b>전국 229개 지자체를 골라 종합 지수, 등급, 순위, 3년 추이를 조회하고 PDF로 내려받음</p></div>
+      <div data-p="2" hidden><img src="img/inbound.jpg" alt="2025 외래관광객조사 결과 탐색 대시보드 화면"><p class="pc2"><b>외래관광객조사 결과 탐색</b>43개 문항을 국가, 성별, 연령, 방한 목적별로 골라 2025년과 2024년 결과를 비교</p></div>
     </div>
   </div>
 </div>
@@ -358,7 +396,7 @@ document.querySelectorAll('.mk').forEach(function(m){var ti=m.querySelector('tit
 <script>
 (function(){
 var D=[["삼성",23521],["LG",22222],["두산",21233],["롯데",19161],["KIA",17800],["SSG",17627],["한화",16207],["kt",14408],["키움",12820],["NC",12369]];
-var svg=document.getElementById('isoS'),card=document.getElementById('isoCard'),re=document.getElementById('isoRe');
+var svg=document.getElementById('isoS'),card=document.getElementById('carL'),re=document.getElementById('isoRe');
 if(!svg||!window.requestAnimationFrame)return;
 var c=34,ox=62,oy=196,H=168,mx=D[0][1],G=svg.querySelectorAll('g.mk'),V=svg.querySelectorAll('text.vl');
 function P(x,y,z){return (ox+(x-y)*c*0.866).toFixed(1)+','+(oy+(x+y)*c*0.5-z).toFixed(1);}
@@ -369,8 +407,28 @@ function draw(t){D.forEach(function(d,i){var x0=i*1.5,x1=x0+.9,y0=0,y1=.9,k=Math
  var q=P(x0+.45,.45,h).split(',');V[i].setAttribute('y',(parseFloat(q[1])-12).toFixed(1));
  V[i].textContent=(k>=1?d[1]:Math.round(d[1]*e)).toLocaleString('ko-KR');});}
 var run=false;function play(){if(run)return;run=true;var s=null;function step(ts){if(!s)s=ts;var t=Math.min(1,(ts-s)/1500);draw(t);if(t<1)requestAnimationFrame(step);else{draw(9);run=false;}}requestAnimationFrame(step);}
-var red=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-if(!red){re.hidden=false;re.addEventListener('click',play);
+var red=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,WA=!!Element.prototype.animate;
+var timers=[];function clr(){timers.forEach(clearTimeout);timers=[];}
+function playMap(){var ms=document.getElementById('mapS'),ml=document.getElementById('mapL');if(!WA||!ms)return;clr();
+ var bb=ms.viewBox.baseVal,cx=bb.width/2,cy=bb.height/2,nv=[].slice.call(ms.querySelectorAll('.rg.nv')),vv=[].slice.call(ms.querySelectorAll('.rg:not(.nv)')).sort(function(a,b){return b.dataset.v-a.dataset.v;});
+ ml.querySelectorAll('li').forEach(function(l){l.classList.add('dim');});
+ function fly(el,delay){var r=el.getBBox(),dx=(r.x+r.width/2-cx),dy=(r.y+r.height/2-cy),k=Math.max(60,Math.sqrt(dx*dx+dy*dy)),ux=dx/k*150,uy=dy/k*150;
+  el.animate([{transform:'translate('+ux+'px,'+uy+'px) rotate('+(dx>0?18:-18)+'deg)',opacity:0},{transform:'none',opacity:1}],{duration:620,delay:delay,easing:'cubic-bezier(.25,1.4,.5,1)',fill:'backwards'});}
+ nv.forEach(function(el,i){fly(el,i*40);});var base=nv.length*40+200;
+ vv.forEach(function(el,i){fly(el,base+i*260);timers.push(setTimeout(function(){var li=ml.querySelector('li[data-id="'+el.dataset.id+'"]');if(li)li.classList.remove('dim');},base+i*260+300));});}
+function playHeat(){var hs=document.getElementById('heatS'),cap=document.getElementById('heatC');if(!WA||!hs)return;clr();
+ var cs=[].slice.call(hs.querySelectorAll('.pc')).sort(function(a,b){return a.dataset.v-b.dataset.v;});
+ cs.forEach(function(el,i){el.animate([{transform:'scale(1,0)'},{transform:'scale(1,1.08)',offset:.7},{transform:'none'}],{duration:460,delay:i*70,fill:'backwards'});
+  timers.push(setTimeout(function(){cap.textContent=(+el.dataset.v).toLocaleString('ko-KR')+'명 · '+el.dataset.c+' '+el.dataset.y;},i*70+120));});
+ timers.push(setTimeout(function(){cap.textContent='';},cs.length*70+1200));}
+var PLAY=[play,playMap,playHeat];
+document.querySelectorAll('[data-car]').forEach(function(fr){var dots=fr.querySelectorAll('.dot'),ps=fr.querySelectorAll('[data-p]'),cur=0,auto=!red,hov=false,left=fr.id==='carL';
+ function go(i,anim){cur=i;dots.forEach(function(d,k){d.classList.toggle('on',k===i);d.setAttribute('aria-pressed',k===i);});ps.forEach(function(p,k){p.hidden=k!==i;});if(left&&anim&&!red)PLAY[i]();}
+ dots.forEach(function(d,k){d.addEventListener('click',function(){auto=false;go(k,true);});});
+ fr.addEventListener('mouseenter',function(){hov=true;});fr.addEventListener('mouseleave',function(){hov=false;});
+ if(left){re.addEventListener('click',function(){auto=false;PLAY[cur]();});}
+ setInterval(function(){if(auto&&!hov&&document.visibilityState==='visible'){var r=fr.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)go((cur+1)%ps.length,true);}},left?7000:5000);});
+if(!red){re.hidden=false;
  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){play();io.disconnect();}});},{threshold:0.35});io.observe(card);}}
 if(window.matchMedia&&matchMedia('(hover:hover)').matches&&!red){document.querySelectorAll('.tilt div').forEach(function(el){
  el.addEventListener('mousemove',function(e){var r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform='rotateY('+(x*10)+'deg) rotateX('+(-y*10)+'deg) translateZ(6px)';});

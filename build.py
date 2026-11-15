@@ -45,6 +45,36 @@ def iso_chart(t=1.0):
         lab.append(f'<text class="vl" text-anchor="middle" x="{vx}" y="{float(vy)-12:.1f}">{f(round(v*t))}</text><text class="nm" text-anchor="middle" x="{nx}" y="{float(ny)+4:.1f}">{tm}</text>')
     return f'<svg id="isoS" viewBox="0 0 560 500" role="img" aria-label="2026 구단별 홈경기 평균 관중 입체 막대그래프">{"".join(o)}{"".join(lab)}</svg>'
 
+import json as _json
+HEAT={'삼성':[9367,11912,18452,23101,23521],'LG':[12919,16939,19144,21725,22222],'두산':[8953,13282,18335,19595,21233],'롯데':[8773,12216,17364,20653,19161],'KIA':[8394,10099,17250,15207,17800],'SSG':[13633,14633,16109,17549,17627],'한화':[4975,7764,11327,16875,16207],'kt':[7393,9553,11887,13301,14408],'키움':[4858,8220,11073,12312,12820],'NC':[5125,7854,10261,10621,12369]}
+REG=[('seoul','서울','LG·두산·키움',4065612),('daegu','대구','삼성',1717050),('busan','부산','롯데',1360401),('gwangju','광주','KIA',1299388),('incheon','인천','SSG',1251538),('daejeon','대전','한화',1150694),('gyeonggi','경기','kt',1022972),('south-gyeongsang','경남','NC',902905)]
+def _mix(a,b,t):
+    a=[int(a[i:i+2],16) for i in (1,3,5)]; b=[int(b[i:i+2],16) for i in (1,3,5)]
+    return '#%02X%02X%02X'%tuple(round(a[i]+(b[i]-a[i])*t) for i in range(3))
+def heat_chart():
+    L,T,cw,ch=46,24,90,31; ys=[2022,2023,2024,2025,2026]
+    vals=[v for r in HEAT.values() for v in r]; lo,hi=min(vals),max(vals); o=[]
+    for j,y in enumerate(ys): o.append(f'<text class="hx" text-anchor="middle" x="{L+j*cw+cw/2}" y="15">{y}</text>')
+    for i,(tm,row) in enumerate(HEAT.items()):
+        y0=T+i*ch; o.append(f'<text class="hy" x="0" y="{y0+ch/2+4}">{tm}</text>')
+        for j,v in enumerate(row):
+            t=(v-lo)/(hi-lo); x0=L+j*cw
+            o.append(f'<rect class="h0" x="{x0+1}" y="{y0+1}" width="{cw-2}" height="{ch-2}" rx="3"/>'
+                     f'<g class="pc mk" tabindex="0" data-v="{v}" data-c="{tm}" data-y="{ys[j]}" data-tip="{tm} {ys[j]}년 평균 {f(v)}명"><rect x="{x0+1}" y="{y0+1}" width="{cw-2}" height="{ch-2}" rx="3" fill="{_mix('#DCEBE8','#17504C',t)}"/>'
+                     f'<text class="hv" text-anchor="middle" x="{x0+cw/2}" y="{y0+ch/2+4}" fill="{'#fff' if t>0.45 else '#15191E'}">{v/1000:.1f}</text></g>')
+    return f'<svg id="heatS" viewBox="0 0 {L+5*cw} {T+10*ch}" role="img" aria-label="구단별 연도별 경기당 평균 관중 히트맵">{"".join(o)}</svg>'
+def map_chart():
+    m=_json.load(open('skmap.json')); val={r[0]:r for r in REG}; lo,hi=REG[-1][3],REG[1][3]; o=[]
+    for l in m['locations']:
+        if l['id'] in val:
+            v=val[l['id']][3]; t=min(1,(v-lo)/(hi-lo)); nm=val[l['id']][1]
+            o.append(f'<path class="rg mk" tabindex="0" data-id="{l["id"]}" data-v="{v}" data-tip="{nm} 홈경기 총관중 {f(v)}명" fill="{_mix('#BFE0DB','#17504C',t)}" d="{l["path"]}"/>')
+        else:
+            o.append(f'<path class="rg nv" d="{l["path"]}"/>')
+    o.sort(key=lambda s:'nv' not in s)
+    rows=''.join(f'<li data-id="{i}"><i>{k+1}</i><b>{n}</b><span>{tm}</span><em>{v/10000:,.0f}만</em></li>' for k,(i,n,tm,v) in enumerate(REG))
+    return f'<div class="mapw"><svg id="mapS" viewBox="{m["viewBox"]}" role="img" aria-label="시도별 2026 홈경기 총관중 지도">{"".join(o)}</svg><ol class="mapl" id="mapL">{rows}</ol></div>'
+
 def table():
     a=''.join(f'<tr><td>{y}</td><td>{f(v)}</td></tr>' for y,v in YEARS)
     b=''.join(f'<tr><td>{t}</td><td>{f(v)}</td></tr>' for t,v in TEAMS)
@@ -52,6 +82,6 @@ def table():
             f'<table><caption>2026 구단별 홈경기 평균 관중(명)</caption><thead><tr><th>구단</th><th>평균</th></tr></thead><tbody>{b}</tbody></table></div>')
 
 page=open('template.html',encoding='utf8').read()
-page=page.replace('{{ISO_CHART}}',iso_chart()).replace('{{YEAR_CHART}}',year_chart()).replace('{{TEAM_ROWS}}',team_rows()).replace('{{TABLE}}',table())
+page=page.replace('{{ISO_CHART}}',iso_chart()).replace('{{HEAT_CHART}}',heat_chart()).replace('{{MAP_CHART}}',map_chart()).replace('{{YEAR_CHART}}',year_chart()).replace('{{TEAM_ROWS}}',team_rows()).replace('{{TABLE}}',table())
 open('index.html','w',encoding='utf8').write(page)
 print(len(page))
