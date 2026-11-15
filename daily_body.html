@@ -1,0 +1,150 @@
+<div class="in page">
+  <h2>매일 서비스</h2>
+  <p class="sub">공개 자료를 매일 수집해 갱신하는 화면입니다. 아래에서 보고 싶은 서비스를 고르세요.</p>
+  <div class="svsel" role="tablist" aria-label="서비스 선택">
+    <div class="svg"><span>지표</span><button type="button" role="tab" data-s="poll">국정수행 평가</button><button type="button" role="tab" data-s="price">농산물 가격동향</button></div>
+    <div class="svg"><span>이슈 레이더</span><button type="button" role="tab" data-s="youth">청년</button></div>
+  </div>
+
+  <section class="sv" id="sv-poll" hidden>
+    <div class="svh"><h3>국정수행 평가 종합 추세</h3><span class="tag" id="pollAs">불러오는 중</span></div>
+    <p class="svd">중앙선거여론조사심의위원회에 등록된 전국 여론조사의 대통령 국정수행 평가를 모아 흐름을 표시합니다. 비써치가 직접 조사한 결과가 아니며, 조사기관마다 방법과 표본이 달라 개별 수치보다 흐름으로 읽어야 합니다.</p>
+    <div class="kpis" id="pollK"></div>
+    <div class="ch"><h4>긍정·부정 평가 추이</h4><div class="cap">단위: % · 점은 개별 조사, 선은 최근 조사에 가중치를 둔 추세선(앞뒤 2주 범위)</div>
+      <div class="lg"><span><i style="background:var(--s1)"></i>긍정 평가</span><span><i style="background:var(--s2)"></i>부정 평가</span></div>
+      <div id="pollC" class="pollc"></div></div>
+    <details open><summary>최근 조사 10건</summary><div class="tscroll"><table id="pollT"></table></div></details>
+    <p class="note">자료: 각 조사기관 공표 결과(출처는 표의 링크). 자세한 내용은 중앙선거여론조사심의위원회 홈페이지 참조.</p>
+  </section>
+
+  <section class="sv" id="sv-price" hidden>
+    <div class="svh"><h3>농산물 가격동향</h3><span class="tag">매일 업데이트</span></div>
+    <p class="svd">KAMIS(농산물유통정보)의 과일·채소 일별 가격을 매일 수집해 평년 대비 수준, 장보기 지수, 품목별 추이를 표시합니다.</p>
+    <div class="links" style="margin:0 0 14px"><a href="https://baebong3.github.io/fruitbasket/" target="_blank" rel="noopener">새 창에서 열기</a></div>
+    <iframe id="priceF" data-src="https://baebong3.github.io/fruitbasket/" title="농산물 가격동향" class="svf"></iframe>
+  </section>
+
+  <section class="sv" id="sv-youth" hidden>
+    <div class="svh"><h3>청년 이슈 레이더</h3><span class="tag" id="yAs">불러오는 중</span></div>
+    <p class="svd">청년정책 관련 뉴스를 매일 아침 수집해 분야와 논조별로 분류합니다. 제목을 누르면 원문 기사로 이동합니다.</p>
+    <div class="kpis" id="yK"></div>
+    <p class="ybrief" id="yB"></p>
+    <div class="yf"><div class="filt" id="yF1" aria-label="분야"></div><div class="filt" id="yF2" aria-label="논조"></div></div>
+    <ol class="news" id="yL"></ol>
+    <button type="button" class="more" id="yM" hidden>더 보기</button>
+    <p class="note">자료: 정책브리핑, 네이버 뉴스, 연합뉴스 수집분. 논조 분류는 자동 분류 결과로 오류가 있을 수 있음.</p>
+  </section>
+  <noscript><p class="note">이 페이지는 자료를 실시간으로 불러오므로 자바스크립트가 필요합니다.</p></noscript>
+</div>
+<style>
+:root{--s1:#008C80;--s2:#DB6B33}
+@media (prefers-color-scheme:dark){:root{--s1:#19A092;--s2:#CF7341}}
+.svsel{display:flex;gap:10px 26px;flex-wrap:wrap;margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.svg{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.svg span{font-size:12.5px;font-weight:700;color:var(--muted);margin-right:4px}
+.svg button{font:inherit;font-size:14.5px;font-weight:700;padding:8px 15px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink2);cursor:pointer}
+.svg button[aria-selected="true"]{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+.sv{border-top:0;padding:4px 0 0}
+.svh{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.svh h3{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.svd{color:var(--ink2);font-size:15px;max-width:760px;margin:6px 0 4px}
+.lg{display:flex;gap:16px;font-size:13px;color:var(--ink2);margin:2px 0 4px}
+.lg i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.pollc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 8px 4px}
+.pollc text{font-family:var(--sans)}
+.pt{stroke:var(--card);stroke-width:1}
+.tscroll{overflow-x:auto}
+#pollT{min-width:600px}
+#pollT td,#pollT th{white-space:nowrap}
+#pollT td:nth-child(1),#pollT th:nth-child(1),#pollT td:nth-child(2),#pollT th:nth-child(2){text-align:left}
+#pollT a{color:var(--acc)}
+.svf{width:100%;height:1500px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.ybrief{background:var(--acc-s);color:var(--ink);border-radius:12px;padding:12px 16px;font-size:14.5px;margin:4px 0 16px}
+.yf{display:grid;gap:8px;margin-bottom:8px}
+.yf .filt{margin:0}
+.news{list-style:none}
+.news li{padding:13px 2px;border-bottom:1px solid var(--line)}
+.news a{font-size:15.5px;font-weight:700;text-decoration:none;line-height:1.45}
+.news a:hover{color:var(--acc);text-decoration:underline}
+.news .mt{display:flex;gap:6px 10px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-top:4px;align-items:center}
+.sn{font-weight:700;padding:1px 8px;border-radius:999px;border:1px solid var(--line);color:var(--ink2)}
+.sn.p{border-color:var(--s1);color:var(--s1)}.sn.n{border-color:var(--s2);color:var(--s2)}
+.more{font:inherit;font-size:14.5px;font-weight:700;margin-top:16px;padding:10px 18px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.err{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:16px;color:var(--ink2);font-size:14.5px}
+@media (max-width:820px){.svf{height:1200px}}
+</style>
+<script>
+(function(){
+var SRC={poll:'https://raw.githubusercontent.com/baebong3/poll-trend/main/data/polls.csv',youth:'https://raw.githubusercontent.com/baebong3/youthpolicy/main/daily_news.json'};
+var $=function(id){return document.getElementById(id)},esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+var N=function(n){return Number(n).toLocaleString('ko-KR')},loaded={};
+function fail(el,msg){el.innerHTML='<div class="err">'+msg+'</div>';}
+function kpi(l,v,s){return '<div class="kpi"><span>'+l+'</span><b>'+v+'</b><em>'+(s||'')+'</em></div>';}
+
+/* ---------- 국정수행 평가 ---------- */
+function csv(t){var R=[],r=[],c='',q=false;for(var i=0;i<t.length;i++){var ch=t[i];if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++;}else q=false;}else c+=ch;}
+ else if(ch==='"')q=true;else if(ch===','){r.push(c);c='';}else if(ch==='\n'){r.push(c);R.push(r);r=[];c='';}else if(ch!=='\r')c+=ch;}
+ if(c||r.length){r.push(c);R.push(r);}return R;}
+function poll(){fetch(SRC.poll,{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text();}).then(function(t){
+ var R=csv(t),H=R[0],ix={};H.forEach(function(h,i){ix[h]=i;});
+ var D=R.slice(1).map(function(r){return {p:r[ix.pollster],m:r[ix.method],n:+r[ix.sample_n],d:r[ix.field_end],a:parseFloat(r[ix.approve]),x:parseFloat(r[ix.disapprove]),u:r[ix.source_url]};})
+  .filter(function(d){return d.d&&!isNaN(d.a)&&!isNaN(d.x);}).sort(function(a,b){return a.d<b.d?-1:1;});
+ if(!D.length)throw 0;
+ D.forEach(function(d){d.t=Date.parse(d.d)/864e5;});
+ var t0=D[0].t,t1=D[D.length-1].t,BW=14;
+ function sm(k,t){var s=0,w=0;D.forEach(function(d){var u=(d.t-t)/BW;if(Math.abs(u)<1){var ww=Math.pow(1-Math.abs(u*u*u),3);s+=ww*d[k];w+=ww;}});return w?s/w:null;}
+ var la=sm('a',t1),lx=sm('x',t1),pa=sm('a',t1-28),px=sm('x',t1-28),ps={};D.forEach(function(d){ps[d.p]=1;});
+ function dl(v,p){if(p==null)return '';var x=v-p;return '4주 전 대비 '+(x>=0?'+':'−')+Math.abs(x).toFixed(1)+'%p';}
+ $('pollAs').textContent=D[D.length-1].d+' 조사분까지';
+ $('pollK').innerHTML=kpi('긍정 평가(추세)',la.toFixed(1)+'%',dl(la,pa))+kpi('부정 평가(추세)',lx.toFixed(1)+'%',dl(lx,px))+kpi('긍정−부정 격차',(la-lx>=0?'+':'−')+Math.abs(la-lx).toFixed(1)+'%p','추세선 기준')+kpi('수록 조사',N(D.length)+'건','조사기관 '+Object.keys(ps).length+'곳');
+ var cw=$('pollC').clientWidth-18,W=Math.max(320,Math.min(920,cw||920)),sm0=W<560,Hh=sm0?300:400,L=sm0?30:38,Rr=sm0?60:96,T=14,B=30,ys=D.map(function(d){return d.a;}).concat(D.map(function(d){return d.x;}));
+ var y0=Math.floor((Math.min.apply(0,ys)-3)/10)*10,y1=Math.ceil((Math.max.apply(0,ys)+3)/10)*10;
+ function X(t){return L+(t-t0)/(t1-t0||1)*(W-L-Rr);}function Y(v){return T+(1-(v-y0)/(y1-y0))*(Hh-T-B);}
+ var o='';for(var g=y0;g<=y1;g+=10)o+='<line x1="'+L+'" x2="'+(W-Rr)+'" y1="'+Y(g)+'" y2="'+Y(g)+'" stroke="var(--line)"/><text x="'+(L-6)+'" y="'+(Y(g)+4)+'" text-anchor="end" font-size="12" fill="var(--muted)">'+g+'</text>';
+ var d0=new Date(t0*864e5),m=new Date(Date.UTC(d0.getUTCFullYear(),d0.getUTCMonth()+1,1));
+ while(m.getTime()/864e5<=t1){var mx=X(m.getTime()/864e5);o+='<line x1="'+mx+'" x2="'+mx+'" y1="'+(Hh-B)+'" y2="'+(Hh-B+5)+'" stroke="var(--muted)"/><text x="'+mx+'" y="'+(Hh-9)+'" text-anchor="middle" font-size="12" fill="var(--ink2)">'+(m.getUTCMonth()+1)+'월</text>';m=new Date(Date.UTC(m.getUTCFullYear(),m.getUTCMonth()+1,1));}
+ o+='<line x1="'+L+'" x2="'+(W-Rr)+'" y1="'+(Hh-B)+'" y2="'+(Hh-B)+'" stroke="var(--muted)"/>';
+ [['a','var(--s1)','긍정'],['x','var(--s2)','부정']].forEach(function(s){
+  D.forEach(function(d){o+='<circle class="pt" data-tip="'+esc(d.d+' '+d.p+' · '+s[2]+' '+d[s[0]].toFixed(1)+'%')+'" cx="'+X(d.t).toFixed(1)+'" cy="'+Y(d[s[0]]).toFixed(1)+'" r="'+(sm0?3:4)+'" fill="'+s[1]+'" fill-opacity=".38"/>';});
+  var pth='';for(var t=t0;t<=t1+.01;t+=1){var v=sm(s[0],t);if(v!=null)pth+=(pth?'L':'M')+X(t).toFixed(1)+','+Y(v).toFixed(1);}
+  o+='<path d="'+pth+'" fill="none" stroke="'+s[1]+'" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>';});
+ var ya=Y(la),yx=Y(lx);if(Math.abs(ya-yx)<30){var mid=(ya+yx)/2;if(ya<yx){ya=mid-15;yx=mid+15;}else{ya=mid+15;yx=mid-15;}}
+ o+='<text x="'+(W-Rr+8)+'" y="'+(ya-2)+'" font-size="12.5" fill="var(--ink2)">긍정</text><text x="'+(W-Rr+8)+'" y="'+(ya+14)+'" font-size="15" font-weight="800" fill="var(--ink)">'+la.toFixed(1)+'%</text>';
+ o+='<text x="'+(W-Rr+8)+'" y="'+(yx-2)+'" font-size="12.5" fill="var(--ink2)">부정</text><text x="'+(W-Rr+8)+'" y="'+(yx+14)+'" font-size="15" font-weight="800" fill="var(--ink)">'+lx.toFixed(1)+'%</text>';
+ $('pollC').innerHTML='<svg viewBox="0 0 '+W+' '+Hh+'" role="img" aria-label="국정수행 긍정·부정 평가 추이 그래프" style="overflow:visible">'+o+'</svg>';
+ var rows=D.slice(-10).reverse().map(function(d){var u=/^https?:\/\//.test(d.u)?'<a href="'+esc(d.u)+'" target="_blank" rel="noopener">출처</a>':'';return '<tr><td>'+esc(d.d)+'</td><td>'+esc(d.p)+'</td><td>'+esc(d.m)+'</td><td>'+(d.n?N(d.n):'')+'</td><td>'+d.a.toFixed(1)+'</td><td>'+d.x.toFixed(1)+'</td><td>'+u+'</td></tr>';}).join('');
+ $('pollT').innerHTML='<thead><tr><th>조사 종료일</th><th>조사기관</th><th>방법</th><th>표본</th><th>긍정(%)</th><th>부정(%)</th><th>출처</th></tr></thead><tbody>'+rows+'</tbody>';
+}).catch(function(){$('pollAs').textContent='불러오지 못함';fail($('pollC'),'자료를 불러오지 못했습니다. 잠시 뒤 새로고침해 주세요.');});}
+
+/* ---------- 청년 이슈 레이더 ---------- */
+var Y={items:[],f:'',s:'',n:30};
+function ydraw(){var L=Y.items.filter(function(i){return (!Y.f||i.field===Y.f)&&(!Y.s||i.sentiment===Y.s);});
+ $('yL').innerHTML=L.slice(0,Y.n).map(function(i){var c=i.sentiment==='긍정'?'p':i.sentiment==='부정'?'n':'';
+  var u=/^https?:\/\//.test(i.url)?i.url:'#';
+  return '<li><a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(i.title)+'</a><div class="mt"><span class="sn '+c+'">'+esc(i.sentiment||'중립')+'</span><span>'+esc(i.date)+'</span><span>'+esc(i.field)+'</span>'+(i.dept&&i.dept!=='-'?'<span>'+esc(i.dept)+'</span>':'')+'<span>'+esc(i.source)+'</span></div></li>';}).join('')||'<li>조건에 맞는 기사가 없습니다.</li>';
+ $('yM').hidden=L.length<=Y.n;$('yM').textContent='더 보기 ('+N(L.length-Y.n)+'건 남음)';}
+function chips(el,list,key){var cnt={};Y.items.forEach(function(i){cnt[i[key]]=(cnt[i[key]]||0)+1;});
+ el.innerHTML='<button type="button" class="on" data-v="">전체 '+N(Y.items.length)+'</button>'+list.filter(function(v){return cnt[v];}).map(function(v){return '<button type="button" data-v="'+esc(v)+'">'+esc(v)+' '+N(cnt[v])+'</button>';}).join('');
+ el.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;el.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b);});Y[key==='field'?'f':'s']=b.dataset.v;Y.n=30;ydraw();});}
+function youth(){fetch(SRC.youth,{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
+ Y.items=(d.items||[]).slice().sort(function(a,b){return a.date<b.date?1:-1;});var m=d.meta||{},s=m.sentiment||{};
+ $('yAs').textContent=(m.date||'')+' 수집분';
+ $('yK').innerHTML=kpi('수집 기사',N(Y.items.length)+'건',m.date||'')+kpi('긍정 논조',N(s['긍정']||0)+'건','')+kpi('부정 논조',N(s['부정']||0)+'건','')+kpi('신규 정책 탐지',N(m.new_count||0)+'건','');
+ $('yB').textContent=d.brief||'';$('yB').hidden=!d.brief;
+ var fs={};Y.items.forEach(function(i){fs[i.field]=1;});
+ chips($('yF1'),Object.keys(fs).sort(),'field');chips($('yF2'),['긍정','중립','부정'],'sentiment');ydraw();
+}).catch(function(){$('yAs').textContent='불러오지 못함';fail($('yL'),'자료를 불러오지 못했습니다. 잠시 뒤 새로고침해 주세요.');});}
+$('yM').addEventListener('click',function(){Y.n+=30;ydraw();});
+
+/* ---------- 서비스 선택 (새 서비스는 SV에 한 줄 추가) ---------- */
+var SV={poll:poll,price:function(){var f=$('priceF');f.src=f.dataset.src;},youth:youth};
+function show(id){if(!SV[id])id='poll';document.querySelectorAll('.sv').forEach(function(s){s.hidden=s.id!=='sv-'+id;});
+ document.querySelectorAll('.svsel button').forEach(function(b){b.setAttribute('aria-selected',b.dataset.s===id);});
+ if(!loaded[id]){loaded[id]=1;SV[id]();}
+ if(location.hash.slice(1)!==id)history.replaceState(null,'','#'+id);}
+document.querySelectorAll('.svsel button').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.s);});});
+window.addEventListener('hashchange',function(){show(location.hash.slice(1));});
+show(location.hash.slice(1)||'poll');
+var tip=$('tip');if(tip){document.addEventListener('mousemove',function(e){var t=e.target;if(t&&t.classList&&t.classList.contains('pt')){tip.textContent=t.dataset.tip;tip.style.opacity=1;var x=Math.min(e.clientX+12,innerWidth-tip.offsetWidth-8);tip.style.left=Math.max(8,x)+'px';tip.style.top=Math.max(8,e.clientY-34)+'px';}else if(!(t&&t.closest&&t.closest('.mk')))tip.style.opacity=0;});}
+})();
+</script>

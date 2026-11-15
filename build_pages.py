@@ -135,3 +135,7 @@ if FORM_URL:
 </div>'''
 open('contact.html','w',encoding='utf8').write(page('문의',body))
 print('pages ok',os.path.getsize('examples.html')//1024,'KB',len(EX))
+
+# ---------- 매일 서비스 ----------
+open('daily.html','w',encoding='utf8').write(page('매일 서비스',open('daily_body.html',encoding='utf8').read()))
+print('daily ok')
