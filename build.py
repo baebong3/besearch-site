@@ -75,6 +75,15 @@ def map_chart():
     rows=''.join(f'<li data-id="{i}"><i>{k+1}</i><b>{n}</b><span>{tm}</span><em>{v/10000:,.0f}만</em></li>' for k,(i,n,tm,v) in enumerate(REG))
     return f'<div class="mapw"><svg id="mapS" viewBox="{m["viewBox"]}" role="img" aria-label="시도별 2026 홈경기 총관중 지도">{"".join(o)}</svg><ol class="mapl" id="mapL">{rows}</ol></div>'
 
+def marquee():
+    import hashlib
+    rs=_json.load(open('regions.json',encoding='utf8')); o=[]
+    for r in rs:
+        sd,nm=r.split(' ',1); h=hashlib.md5(r.encode()).digest()
+        bars=''.join(f'<i style="height:{22+h[k]%70}%"></i>' for k in range(5))
+        o.append(f'<div class="rc"><small>{sd}</small><b>{nm}</b><div class="rb">{bars}</div><div class="rl"><u style="width:{55+h[6]%40}%"></u><u style="width:{35+h[7]%45}%"></u></div><em>PDF</em></div>')
+    return f'<div class="mq" aria-hidden="true"><div class="mqt" id="mqt">{"".join(o)}</div></div>',len(rs)
+
 def table():
     a=''.join(f'<tr><td>{y}</td><td>{f(v)}</td></tr>' for y,v in YEARS)
     b=''.join(f'<tr><td>{t}</td><td>{f(v)}</td></tr>' for t,v in TEAMS)
@@ -82,6 +91,7 @@ def table():
             f'<table><caption>2026 구단별 홈경기 평균 관중(명)</caption><thead><tr><th>구단</th><th>평균</th></tr></thead><tbody>{b}</tbody></table></div>')
 
 page=open('template.html',encoding='utf8').read()
-page=page.replace('{{ISO_CHART}}',iso_chart()).replace('{{HEAT_CHART}}',heat_chart()).replace('{{MAP_CHART}}',map_chart()).replace('{{YEAR_CHART}}',year_chart()).replace('{{TEAM_ROWS}}',team_rows()).replace('{{TABLE}}',table())
+_mq,_mqn=marquee()
+page=page.replace('{{MARQUEE}}',_mq).replace('{{MQ_N}}',str(_mqn)).replace('{{ISO_CHART}}',iso_chart()).replace('{{HEAT_CHART}}',heat_chart()).replace('{{MAP_CHART}}',map_chart()).replace('{{YEAR_CHART}}',year_chart()).replace('{{TEAM_ROWS}}',team_rows()).replace('{{TABLE}}',table())
 open('index.html','w',encoding='utf8').write(page)
 print(len(page))
