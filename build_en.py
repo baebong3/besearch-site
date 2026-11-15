@@ -30,7 +30,7 @@ T = {
  '데이터 시각화 보고서 제작 전문': 'Data visualization reports',
  '<h1><span>데이터를 <em>쉽고 빠르게</em></span> <span>시각화해드립니다</span></h1>': '<h1><span>We visualize your data,</span> <span><em>simply and fast</em></span></h1>',
  '<p>자료만 보내 주시면 됩니다. 통계자료, 조사 결과, 인터뷰 스크립트를 받아 보고서와 대시보드로 빠르게 만들어 드립니다.<br>비써치는 데이터 시각화 보고서 제작 전문 기업입니다.</p>':
-   '<p>Just send us your material. We turn statistics, survey results and interview transcripts into reports and dashboards, quickly.<br>BeSearch is a studio in Seoul that specializes in data visualization reports.</p>',
+   '<p>Just send us your material. We turn statistics, survey results and interview transcripts into reports and dashboards, quickly.<br>BeSearch is a Korean studio that specializes in data visualization reports.</p>',
  '기존 양식의 보고서': 'Reports in familiar formats',
  '기관에서 쓰는 한글, 파워포인트, 워드 양식 그대로 작성. 제안서 PPT도 제작': 'Written in the formats your organization already uses: Hangul (HWPX), PowerPoint and Word. Proposal decks too.',
  '새로운 양식의 보고서': 'Reports in new formats',
@@ -129,7 +129,7 @@ T = {
  '<summary>보낸 자료는 어떻게 관리되나요?</summary><p>받은 자료는 의뢰하신 작업에만 사용합니다. 공개되지 않은 자료와 결과물은 동의 없이 외부에 공개하거나 예시로 사용하지 않습니다. 자세한 내용은 <a href="privacy.html">개인정보처리방침</a>에서 확인할 수 있습니다.</p>': '<summary>How is my material handled?</summary><p>We use it only for the work you ordered. Unpublished material and deliverables are not disclosed or used as samples without your consent. See our <a href="../privacy.html">Privacy Policy (Korean)</a>.</p>',
  # 회사
  '<h2>회사 소개</h2>': '<h2>About</h2>',
- '비써치(BeSearch)는 데이터 시각화 보고서 제작 전문 기업입니다.': 'BeSearch is a studio in Seoul, Korea, that specializes in data visualization reports.',
+ '비써치(BeSearch)는 데이터 시각화 보고서 제작 전문 기업입니다.': 'BeSearch is a Korean studio that specializes in data visualization reports.',
  '<dt>상호</dt><dd>비써치(BeSearch)</dd>': '<dt>Name</dt><dd>BeSearch</dd>',
  '<dt>사업자등록번호</dt>': '<dt>Business registration no.</dt>',
  '<dt>개업</dt><dd>2025년 11월</dd>': '<dt>Established</dt><dd>November 2025</dd>',
@@ -138,7 +138,7 @@ T = {
  '<h5>서비스</h5><a href="index.html#can">할 수 있는 일</a><a href="index.html#process">진행 절차</a><a href="examples.html">예시</a>': '<h5>Services</h5><a href="#can">What we do</a><a href="#process">Process</a><a href="../examples.html">Examples (Korean)</a>',
  '<h5>자료</h5><a href="daily.html">일일 동향</a><a href="index.html#faq">자주 묻는 질문</a><a href="contact.html">문의</a>': '<h5>More</h5><a href="../daily.html">Daily trends (Korean)</a><a href="#faq">FAQ</a><a href="contact.html">Contact</a>',
  '<h5>정책</h5><a href="terms.html">이용약관</a><a href="privacy.html"><strong>개인정보처리방침</strong></a>': '<h5>Policies</h5><a href="../terms.html">Terms of Service (Korean)</a><a href="../privacy.html"><strong>Privacy Policy (Korean)</strong></a>',
- '상호 비써치(BeSearch) · 사업자등록번호 189-36-01510 · 업종 시장조사 및 여론조사업 외 · 문의 mjmg1325@naver.com': 'BeSearch · Business registration no. 189-36-01510 · Seoul, Republic of Korea · mjmg1325@naver.com',
+ '상호 비써치(BeSearch) · 사업자등록번호 189-36-01510 · 업종 시장조사 및 여론조사업 외 · 문의 mjmg1325@naver.com': 'BeSearch · Business registration no. 189-36-01510 · Republic of Korea · mjmg1325@naver.com',
  '<a href="en/index.html" hreflang="en">English</a>': '<a href="../index.html" hreflang="ko">한국어</a>',
  '<a class="logo" href="index.html"><span>Be<b>Search</b></span></a>': '<a class="logo" href="index.html"><span>Be<b>Search</b></span></a>',
 }
