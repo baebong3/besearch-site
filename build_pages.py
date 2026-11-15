@@ -69,20 +69,20 @@ EX=[ # (썸네일, 제목, 분류, 링크)
 cards={c:[] for c in (D,R,I,T)}
 for th,title,cat,link in EX:
     b64=base64.b64encode(open(TH+th+'.jpg','rb').read()).decode()
-    inner=f'<img loading="lazy" alt="{html.escape(title)} 화면" src="data:image/jpeg;base64,{b64}"><div><b>{html.escape(title)}</b><span>{cat}{" · 열기" if link else ""}</span></div>'
+    inner=f'<img loading="lazy" alt="{html.escape(title)} 화면" src="data:image/jpeg;base64,{b64}"><div><b>{html.escape(title)}</b><span>{cat}{" · 바로가기" if link else ""}</span></div>'
     cards[cat].append(f'<a class="gc" href="{link}">{inner}</a>' if link else f'<div class="gc">{inner}</div>')
 secs=''.join(f'<div class="gs" data-c="{c}"><h3 class="gh">{c} <span style="font-weight:500;color:var(--muted);font-size:14px">{len(v)}건</span></h3><div class="gal">{"".join(v)}</div></div>' for c,v in cards.items())
 btn='<button class="on" data-f="">전체 '+str(len(EX))+'</button>'+''.join(f'<button data-f="{c}">{c}</button>' for c in cards)
 body=f'''<div class="in page">
-  <h2>예시</h2>
-  <p class="sub">HTML 화면으로 구현한 대시보드, 보고서, 뉴스 동향, 조사 도구 {len(EX)}건의 첫 화면. "열기"가 표시된 항목만 실제 화면으로 연결되고, 나머지는 캡처 화면으로 게재함.</p>
+  <h2>제작 사례</h2>
+  <p class="sub">HTML 화면으로 구현한 대시보드, 보고서, 뉴스 동향, 조사 도구 {len(EX)}건의 첫 화면. "바로가기"가 표시된 항목만 실제 화면으로 연결되고, 나머지는 캡처 화면으로 게재함.</p>
   <div class="filt">{btn}</div>
   {secs}
 </div>
 <script>document.querySelectorAll('.filt button').forEach(function(b){{b.addEventListener('click',function(){{
 document.querySelectorAll('.filt button').forEach(function(x){{x.classList.toggle('on',x===b)}});
 document.querySelectorAll('.gs').forEach(function(s){{s.style.display=(!b.dataset.f||s.dataset.c===b.dataset.f)?'':'none'}});}});}});</script>'''
-open('examples.html','w',encoding='utf8').write(page('예시',body))
+open('examples.html','w',encoding='utf8').write(page('제작 사례',body))
 # 첫 화면 예시: 대시보드마다 제목·설명·단위·그래프가 함께 있는 카드 한 개, 아래에는 관련 조사·용역 이름
 PICK=[('edu','평생학습 개인실태조사','집단 간 차이 점 그래프'),('korail','한국철도공사 서비스 품질평가','점수 추이 꺾은선'),('flow','국민여행조사','시도 간 여행 흐름 지도'),
       ('lodging','관광숙박 수급분석 데이터 조사','수급 사분면 산점도'),('rank','외래관광객조사','방한 시장 순위 변화선'),('rnd','연구산업 실태조사','인력 구성 도넛'),
@@ -95,7 +95,7 @@ open('index.html','w',encoding='utf8').write(ix)
 
 # ---------- 문의 ----------
 body=f'''<div class="in page">
-  <h2>문의</h2>
+  <h2>문의·의뢰</h2>
   <p class="sub">조사, 보고서 작성, 대시보드 제작 의뢰를 메일로 받습니다. 아래 양식을 채우고 보내기를 누르면 메일 작성 화면이 열립니다.</p>
   <div class="mailbox"><span>받는 주소</span><b id="addr">{MAIL}</b><button type="button" id="copy">주소 복사</button></div>
   <form class="form" id="f">
@@ -129,17 +129,17 @@ var r=document.createRange();r.selectNode(document.getElementById('addr'));var s
 if FORM_URL:
     emb=FORM_URL+('&' if '?' in FORM_URL else '?')+'embedded=true'
     body=f'''<div class="in page">
-  <h2>문의</h2>
+  <h2>문의·의뢰</h2>
   <p class="sub">조사, 보고서 작성, 대시보드 제작 의뢰를 아래 양식으로 받습니다. 제출하면 담당자에게 바로 전달됩니다.</p>
   <div class="links" style="margin:0 0 18px"><a href="{FORM_URL}" target="_blank" rel="noopener">새 창에서 양식 열기</a></div>
   <iframe src="{emb}" title="의뢰 양식" style="width:100%;max-width:760px;height:1400px;border:1px solid var(--line);border-radius:12px;background:#fff" loading="lazy">양식을 불러오는 중입니다.</iframe>
   <p class="note">양식이 보이지 않으면 {MAIL} 로 메일을 보내 주세요. 입력하신 정보는 <a href="privacy.html">개인정보처리방침</a>에 따라 상담과 회신에만 사용합니다.</p>
 </div>'''
-open('contact.html','w',encoding='utf8').write(page('문의',body))
+open('contact.html','w',encoding='utf8').write(page('문의·의뢰',body))
 print('pages ok',os.path.getsize('examples.html')//1024,'KB',len(EX))
 
 # ---------- 매일 서비스 ----------
-open('daily.html','w',encoding='utf8').write(page('일일 동향 자료',open('daily_body.html',encoding='utf8').read()))
+open('daily.html','w',encoding='utf8').write(page('데이터 동향',open('daily_body.html',encoding='utf8').read()))
 print('daily ok')
 
 # ---------- 약관·방침 ----------
