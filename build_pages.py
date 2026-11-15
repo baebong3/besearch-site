@@ -1,96 +1,8 @@
-# index.html 수정 + examples.html, contact.html 생성 (build.py 실행 뒤에 실행)
+# examples.html, contact.html 생성 + index.html 생성(build.py)
 import base64,os,re,html
 TH='thumbs/'
 MAIL='mjmg1325@naver.com'
 t=open('template.html',encoding='utf8').read()
-def rep(a,b,cnt=1):
-    global t
-    assert a in t, a[:50]
-    t=t.replace(a,b,cnt)
-NAV='<nav><a href="index.html#service">하는 일</a><a href="index.html#work">프로젝트</a><a href="examples.html">예시</a><a href="contact.html">문의</a></nav>'
-rep('<nav><a href="#service">하는 일</a><a href="#work">프로젝트</a><a href="#company">회사 정보</a></nav>',NAV)
-rep('<a class="logo" href="#top">','<a class="logo" href="index.html">')
-rep('<p>비써치는 시장조사·여론조사와 사회과학 연구를 수행하고, 그 결과를 대시보드와 서비스로 제작합니다. 수집부터 검증, 게시까지 자동으로 돌아가는 구조로 운영합니다.</p>',
-    '<p>비써치는 데이터와 인터뷰 자료를 받아 보고서와 통계 대시보드로 제작합니다. HTML, PPT, PDF, HWPX, DOCX 가운데 필요한 형식으로 납품합니다.</p>')
-rep('<a class="btn" href="#company">회사 정보</a>','<a class="btn" href="examples.html">예시 보기</a><a class="btn" href="contact.html">의뢰하기</a>')
-s0=t.index('<p class="sub">사업자등록 업종 기준 세 가지 영역</p>'); s1=t.index('</div></section>',s0)
-t=t[:s0]+'''<p class="sub">자료를 받아 결과물로 만드는 네 가지 작업</p>
-  <div class="svc">
-    <div><span class="no">01</span><h3>모든 형식의 보고서</h3><p>데이터를 받아 HTML, PPT, PDF, HWPX, DOCX 보고서로 작성</p></div>
-    <div><span class="no">02</span><h3>정성 인터뷰 정리</h3><p>인터뷰 스크립트를 받아 요약 정리하고 보고서로 작성</p></div>
-    <div><span class="no">03</span><h3>기관별 통계 대시보드</h3><p>기관이 보유한 통계와 조사 결과를 한 화면에서 조회하는 대시보드 제작</p></div>
-    <div><span class="no">04</span><h3>입체(3D) 대시보드</h3><p>지도, 막대, 카드에 입체 표현과 움직임을 적용한 대시보드 제작</p></div>
-  </div>
-'''+t[s1:]
-rep('.svc{display:grid;grid-template-columns:repeat(3,1fr)','.svc{display:grid;grid-template-columns:repeat(4,1fr)')
-rep('.svc,.feat{grid-template-columns:1fr}','.svc,.feat{grid-template-columns:1fr}\n  .form .row{grid-template-columns:1fr}\n  .gal{grid-template-columns:1fr 1fr}')
-rep('@media (max-width:820px){','@media (max-width:1000px){.svc{grid-template-columns:1fr 1fr}}\n@media (max-width:820px){')
-rep('    <div class="links"><a href="https://baebong3.github.io/kbo-dashboard/">대시보드 열기</a></div>\n','')
-a0=t.index('<div class="two">'); a1=t.index('</div></section>',a0)
-t=t[:a0]+'''<article class="proj">
-    <div class="proj-h"><h3>해산어류 양식 사료 실태 동향</h3><span class="tag">동향보고서</span></div>
-    <p>어류양식동향조사(2025 잠정)와 해양수산부 고수온 피해 집계(2026년 9월 4일 잠정)를 바탕으로 생산, 사료 구조, 정책 수단, 고수온 피해를 정리한 보고서.</p>
-    <div class="kpis">
-      <div class="kpi"><span>양식 생산량</span><b>82,807톤</b><em>2025 잠정, +1.1%</em></div>
-      <div class="kpi"><span>생산금액</span><b>1조 3,579억</b><em>2025 잠정, +12.1%</em></div>
-      <div class="kpi"><span>배합사료 비중</span><b>16% 내외</b><em>추정치</em></div>
-      <div class="kpi"><span>고수온 폐사</span><b>1,353만 마리</b><em>2026년 9월 4일 잠정</em></div>
-    </div>
-    <div class="links"><a href="reports/haesan-feed.html">보고서 열기</a></div>
-  </article>
-  <article class="proj">
-    <div class="proj-h"><h3>교통문화지수 지자체 컨설팅 대시보드</h3><span class="tag">기관별 대시보드</span></div>
-    <p>한국교통안전공단 「2025년 교통문화지수 실태조사」 결과를 지자체별 컨설팅 보고서로 구성한 대시보드. 시도와 시군구를 고르면 해당 지자체의 종합 지수, 등급, 그룹 내 순위, 최근 3년 추이, 유형화 결과, 교통사고 현황이 한 화면에 표시되고 PDF로 내려받을 수 있음.</p>
-    <div class="kpis">
-      <div class="kpi"><span>대상 지자체</span><b>229개</b><em>17개 시도 전체</em></div>
-      <div class="kpi"><span>지자체 유형</span><b>5개</b><em>교통선도형 ~ 이동지원형</em></div>
-      <div class="kpi"><span>평가 영역</span><b>3개</b><em>운전행태·보행행태·교통안전</em></div>
-      <div class="kpi"><span>추이 기간</span><b>3년</b><em>2023~2025</em></div>
-    </div>
-    <img class="cap" loading="lazy" src="img/traffic-culture.jpg" alt="교통문화지수 지자체 컨설팅 대시보드 화면">
-    <p class="note">원자료는 공개 대상이 아니어서 결과물 화면으로 게재함.</p>
-  </article>
-  <div class="links"><a href="examples.html">예시 전체 보기</a></div>
-'''+t[a1:]
-c0=t.index('<section id="company">'); c1=t.index('</main>')
-t=t[:c0]+'''<section id="company"><div class="in">
-  <h2>회사 정보</h2>
-  <p class="sub">2025년 11월 개업</p>
-  <dl class="info">
-    <dt>상호</dt><dd>비써치(BeSearch)</dd>
-    <dt>업종</dt><dd>시장조사 및 여론조사업, 전자상거래 소매업, 기타 인문 및 사회과학 연구개발업</dd>
-    <dt>문의</dt><dd><a href="contact.html">조사·분석 의뢰하기</a></dd>
-  </dl>
-</div></section>
-'''+t[c1:]
-f0=t.index('<footer>'); f1=t.index('</footer>')
-FOOT='<footer><div class="in">비써치(BeSearch) · <a href="contact.html">문의</a><br>© 2026 BeSearch</div>'
-t=t[:f0]+FOOT+t[f1:]
-rep('#tip{position:fixed','''.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.gc{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;display:block}
-.gc img{display:block;width:100%;aspect-ratio:8/5;object-fit:cover;object-position:top;border-bottom:1px solid var(--line);background:#fff}
-.gc div{padding:11px 14px 13px}
-.gc b{display:block;font-size:14.5px;line-height:1.4}
-.gc span{font-size:12.5px;color:var(--muted)}
-a.gc:hover{border-color:var(--acc)}
-.filt{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
-.filt button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink2);cursor:pointer}
-.filt button.on{background:var(--acc);border-color:var(--acc);color:var(--bg)}
-.cap{display:block;width:100%;border:1px solid var(--line);border-radius:12px;margin-top:6px}
-.gh{font-size:18px;font-weight:800;margin:30px 0 12px}
-.form{max-width:640px;display:grid;gap:14px}
-.form .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.form label{display:grid;gap:6px;font-size:14px;font-weight:600}
-.form input,.form select,.form textarea{font:inherit;font-size:15px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
-.form textarea{min-height:160px;resize:vertical}
-.form input:focus,.form select:focus,.form textarea:focus{outline:2px solid var(--acc);outline-offset:1px}
-.form button{font:inherit;font-size:15px;font-weight:700;padding:13px 20px;border-radius:10px;border:0;background:var(--acc);color:var(--bg);cursor:pointer;justify-self:start}
-.mailbox{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;max-width:640px;margin-bottom:26px}
-.mailbox b{font-size:17px}
-.mailbox button{font:inherit;font-size:13px;font-weight:700;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--ink2);cursor:pointer}
-.page{padding:48px 0 64px}
-#tip{position:fixed''')
-open('template.html.out','w',encoding='utf8').write(t)
 exec(open('build.py',encoding='utf8').read())
 
 # ---------- 공통 머리/꼬리 ----------
@@ -172,6 +84,14 @@ body=f'''<div class="in page">
 document.querySelectorAll('.filt button').forEach(function(x){{x.classList.toggle('on',x===b)}});
 document.querySelectorAll('.gs').forEach(function(s){{s.style.display=(!b.dataset.f||s.dataset.c===b.dataset.f)?'':'none'}});}});}});</script>'''
 open('examples.html','w',encoding='utf8').write(page('예시',body))
+# 첫 화면 예시 띠
+PICK=['u_traffic','r_forest','r_forestmap','a_GWDtKaT8ct8iyNheWrExJC','a_FZdLk6sk2TXah7ehK5M7xe','a_AxwtS8vR3UDjcVv1LxLvcj','a_2wo9xhYeDnZwhSGf2qdmx1','a_YSNsnuApQ25zAXJLwkt3T2','a_VauRA9WZB8gC1EZ5aUw5Sq','r_medtour','r_mice','a_Husc7r3XTX5AgnXKdab4dG']
+by={e[0]:e for e in EX}; hg=''
+for k in PICK:
+    th,title,cat,link=by[k]
+    hg+=f'<div class="gc"><img alt="{html.escape(title)} 화면" src="thumbs/{th}.jpg"><div><b>{html.escape(title)}</b><span>{cat}</span></div></div>'
+ix=open('index.html',encoding='utf8').read().replace('{{HOME_GAL}}',hg).replace('{{EX_N}}',str(len(EX)))
+open('index.html','w',encoding='utf8').write(ix)
 
 # ---------- 문의 ----------
 body=f'''<div class="in page">

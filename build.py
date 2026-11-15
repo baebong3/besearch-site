@@ -29,13 +29,29 @@ def team_rows():
         r.append(f'<li class="mk" tabindex="0" data-tip="{t} 홈경기 평균 {f(v)}명"><span class="tn">{t}</span><span class="tb"><i style="width:{v/mx*100:.1f}%"></i></span><span class="tv">{f(v)}</span></li>')
     return ''.join(r)
 
+
+def iso_chart(t=1.0):
+    c,ox,oy,H=34,62,196,168; mx=TEAMS[0][1]
+    def P(x,y,z): return f"{ox+(x-y)*c*0.866:.1f},{oy+(x+y)*c*0.5-z:.1f}"
+    o=[f'<polygon class="fl" points="{P(-.7,-.7,0)} {P(15.1,-.7,0)} {P(15.1,1.7,0)} {P(-.7,1.7,0)}"/>']; lab=[]
+    for i,(tm,v) in enumerate(TEAMS):
+        x0,x1,y0,y1,h=i*1.5,i*1.5+.9,0,.9,v/mx*H*t
+        top,lf,rt=('#F2B89A','#D9703F','#A9502A') if i==0 else ('#7FC4BD','#2F7F79','#17504C')
+        o.append(f'<g class="mk" tabindex="0" data-tip="{tm} 홈경기 평균 {f(v)}명">'
+                 f'<polygon fill="{lf}" points="{P(x0,y1,0)} {P(x1,y1,0)} {P(x1,y1,h)} {P(x0,y1,h)}"/>'
+                 f'<polygon fill="{rt}" points="{P(x1,y0,0)} {P(x1,y1,0)} {P(x1,y1,h)} {P(x1,y0,h)}"/>'
+                 f'<polygon fill="{top}" points="{P(x0,y0,h)} {P(x1,y0,h)} {P(x1,y1,h)} {P(x0,y1,h)}"/></g>')
+        vx,vy=P(x0+.45,.45,h).split(','); nx,ny=P(x0+.45,2.1,0).split(',')
+        lab.append(f'<text class="vl" text-anchor="middle" x="{vx}" y="{float(vy)-12:.1f}">{f(round(v*t))}</text><text class="nm" text-anchor="middle" x="{nx}" y="{float(ny)+4:.1f}">{tm}</text>')
+    return f'<svg id="isoS" viewBox="0 0 560 500" role="img" aria-label="2026 구단별 홈경기 평균 관중 입체 막대그래프">{"".join(o)}{"".join(lab)}</svg>'
+
 def table():
     a=''.join(f'<tr><td>{y}</td><td>{f(v)}</td></tr>' for y,v in YEARS)
     b=''.join(f'<tr><td>{t}</td><td>{f(v)}</td></tr>' for t,v in TEAMS)
     return (f'<div class="tw"><table><caption>연도별 경기당 평균 관중(명)</caption><thead><tr><th>연도</th><th>평균</th></tr></thead><tbody>{a}</tbody></table>'
             f'<table><caption>2026 구단별 홈경기 평균 관중(명)</caption><thead><tr><th>구단</th><th>평균</th></tr></thead><tbody>{b}</tbody></table></div>')
 
-page=open('template.html.out',encoding='utf8').read()
-page=page.replace('{{YEAR_CHART}}',year_chart()).replace('{{TEAM_ROWS}}',team_rows()).replace('{{TABLE}}',table())
+page=open('template.html',encoding='utf8').read()
+page=page.replace('{{ISO_CHART}}',iso_chart()).replace('{{YEAR_CHART}}',year_chart()).replace('{{TEAM_ROWS}}',team_rows()).replace('{{TABLE}}',table())
 open('index.html','w',encoding='utf8').write(page)
 print(len(page))
