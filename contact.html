@@ -359,11 +359,11 @@ var SUPA_URL='https://thbvbjpilobcsszcvbxm.supabase.co',SUPA_KEY='sb_publishable
 if(!SUPA_URL||!window.fetch)return;
 var d=new Date(Date.now()+9*3600e3).toISOString().slice(0,10),first=true;
 try{first=localStorage.getItem('bs_visit')!==d;}catch(e){}
-fetch(SUPA_URL+'/rest/v1/rpc/record_visit',{method:'POST',headers:{'Content-Type':'application/json',apikey:SUPA_KEY,Authorization:'Bearer '+SUPA_KEY},body:JSON.stringify({count_it:first})})
-.then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(v){
+fetch(SUPA_URL+'/rest/v1/rpc/record_visit',{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPA_KEY},body:JSON.stringify({count_it:first})})
+.then(function(r){if(!r.ok){return r.text().then(function(x){console.warn('방문자 수 불러오기 실패',r.status,x);throw 0;});}return r.json();}).then(function(v){
  try{localStorage.setItem('bs_visit',d);}catch(e){}
  document.getElementById('visT').textContent=Number(v.today).toLocaleString('ko-KR');document.getElementById('visA').textContent=Number(v.total).toLocaleString('ko-KR');
- document.getElementById('visD').textContent='('+d.replace(/-/g,'.')+' 기준)';document.getElementById('vis').hidden=false;}).catch(function(){});
+ document.getElementById('visD').textContent='('+d.replace(/-/g,'.')+' 기준)';document.getElementById('vis').hidden=false;}).catch(function(e){if(e!==0)console.warn('방문자 수 불러오기 실패',e);});
 })();
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b8adcdecefed4d80b86506c3d35f29ec"}'></script><!-- End Cloudflare Web Analytics -->
