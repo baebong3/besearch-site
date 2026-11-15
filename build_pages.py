@@ -133,7 +133,7 @@ if FORM_URL:
   <p class="sub">조사, 보고서 작성, 대시보드 제작 의뢰를 아래 양식으로 받습니다. 제출하면 담당자에게 바로 전달됩니다.</p>
   <div class="links" style="margin:0 0 18px"><a href="{FORM_URL}" target="_blank" rel="noopener">새 창에서 양식 열기</a></div>
   <iframe src="{emb}" title="의뢰 양식" style="width:100%;max-width:760px;height:1400px;border:1px solid var(--line);border-radius:12px;background:#fff" loading="lazy">양식을 불러오는 중입니다.</iframe>
-  <p class="note">양식이 보이지 않으면 {MAIL} 로 메일을 보내 주세요.</p>
+  <p class="note">양식이 보이지 않으면 {MAIL} 로 메일을 보내 주세요. 입력하신 정보는 <a href="privacy.html">개인정보처리방침</a>에 따라 상담과 회신에만 사용합니다.</p>
 </div>'''
 open('contact.html','w',encoding='utf8').write(page('문의',body))
 print('pages ok',os.path.getsize('examples.html')//1024,'KB',len(EX))
@@ -141,3 +141,11 @@ print('pages ok',os.path.getsize('examples.html')//1024,'KB',len(EX))
 # ---------- 매일 서비스 ----------
 open('daily.html','w',encoding='utf8').write(page('일일 동향 자료',open('daily_body.html',encoding='utf8').read()))
 print('daily ok')
+
+# ---------- 약관·방침 ----------
+open('terms.html','w',encoding='utf8').write(page('이용약관',open('legal_terms.html',encoding='utf8').read()))
+open('privacy.html','w',encoding='utf8').write(page('개인정보처리방침',open('legal_privacy.html',encoding='utf8').read()))
+print('legal ok')
+
+# ---------- 영문판 ----------
+exec(open('build_en.py',encoding='utf8').read())
