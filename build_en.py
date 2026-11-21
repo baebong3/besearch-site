@@ -24,7 +24,7 @@ T = {
  'content="데이터를 쉽고 빠르게 시각화해드립니다. 기존 양식 보고서(HWPX·PPT), 새로운 양식 보고서(HTML·PDF), 3D 대시보드 제작."': 'content="We visualize your data, simply and fast. Reports in HWPX, PPT, HTML and PDF, and 3D dashboards."',
  'content="https://besearch.co.kr/"': 'content="https://besearch.co.kr/en/"',
  '<small>비써치</small>': '',
- '<a href="index.html#can">서비스 안내</a><a href="daily.html">데이터 동향</a><a href="examples.html">제작 사례</a><a href="contact.html">문의·의뢰</a><a class="lang" href="en/index.html" hreflang="en" lang="en">EN</a>':
+ '<a href="index.html#can">서비스 안내</a><a href="daily.html">데이터 동향</a><a href="examples.html">제작 사례</a><a href="pricing.html">금액 산출</a><a href="contact.html">문의·의뢰</a><a class="lang" href="en/index.html" hreflang="en" lang="en">EN</a>':
    '<a href="#can">What we do</a><a href="#process">Process</a><a href="../examples.html">Examples</a><a href="contact.html">Contact</a><a class="lang" href="../index.html" hreflang="ko" lang="ko">한국어</a>',
  # 첫 화면
  '데이터 시각화 보고서 제작 전문': 'Data visualization reports',
@@ -135,7 +135,7 @@ T = {
  '<dt>개업</dt><dd>2025년 11월</dd>': '<dt>Established</dt><dd>November 2025</dd>',
  '<dt>업종</dt><dd>시장조사 및 여론조사업, 기타 인문 및 사회과학 연구개발업, 전자상거래 소매업</dd>': '<dt>Business</dt><dd>Market research and public opinion polling; research in the humanities and social sciences; e-commerce</dd>',
  # 바닥글
- '<h5>서비스</h5><a href="index.html#can">서비스 안내</a><a href="index.html#process">업무 절차</a><a href="examples.html">제작 사례</a>': '<h5>Services</h5><a href="#can">What we do</a><a href="#process">Process</a><a href="../examples.html">Examples (Korean)</a>',
+ '<h5>서비스</h5><a href="index.html#can">서비스 안내</a><a href="index.html#process">업무 절차</a><a href="examples.html">제작 사례</a><a href="pricing.html">금액 산출표</a>': '<h5>Services</h5><a href="#can">What we do</a><a href="#process">Process</a><a href="../examples.html">Examples (Korean)</a>',
  '<h5>고객지원</h5><a href="daily.html">데이터 동향</a><a href="index.html#faq">자주 묻는 질문</a><a href="contact.html">문의·의뢰</a>': '<h5>More</h5><a href="../daily.html">Daily trends (Korean)</a><a href="#faq">FAQ</a><a href="contact.html">Contact</a>',
  '<h5>약관 및 정책</h5><a href="terms.html">이용약관</a><a href="privacy.html"><strong>개인정보처리방침</strong></a>': '<h5>Policies</h5><a href="../terms.html">Terms of Service (Korean)</a><a href="../privacy.html"><strong>Privacy Policy (Korean)</strong></a>',
  '상호 비써치(BeSearch) · 사업자등록번호 189-36-01510 · 업종 시장조사 및 여론조사업 외 · 문의 mjmg1325@naver.com': 'BeSearch · Business registration no. 189-36-01510 · Republic of Korea · mjmg1325@naver.com',
@@ -163,7 +163,7 @@ s = s.replace(".toLocaleString('ko-KR')+'명 · '+el.dataset.c+' '+el.dataset.y"
 s = re.sub(r'aria-label="[^"]*[가-힣][^"]*"', 'aria-label="chart"', s)
 s = re.sub(r'alt="[^"]*[가-힣][^"]*"', 'alt="Sample screen (Korean)"', s)
 s = s.replace('.rc figcaption{', '.rc figcaption{display:none;')
-s = s.replace('</style>', '@media (max-width:820px){nav a[href="#process"]{display:none}.hero h1 span{white-space:normal}}\n</style>', 1)
+s = s.replace('</style>', '.hero h1{font-size:clamp(30px,6.7vw,74px)}.hero p.lead1 span{white-space:normal}@media (max-width:820px){nav a[href="#process"]{display:none}.hero h1 span{white-space:normal;width:auto}}\n</style>', 1)
 
 # ---------- 3. 경로 ----------
 s = re.sub(r'(src|href)="(img/|thumbs/|reports/)', r'\1="../\2', s)

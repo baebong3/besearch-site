@@ -332,6 +332,35 @@ a.shot:hover{border-color:var(--acc)}
 .rc img{display:block;width:168px;height:223px;object-fit:cover;object-position:top;border:1px solid var(--line);border-radius:6px;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.06)}
 .rc figcaption{font-size:13px;font-weight:700;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rc small{font-size:11.5px;font-weight:700;color:var(--acc);margin-right:5px}
+/* 첫 화면 머리 영역: 큰 제목, 등장 모션, 배경 그래프 */
+.hero{position:relative;isolation:isolate;padding-top:clamp(48px,7.6vw,96px)}
+.hero h1{font-size:clamp(26px,10.2vw,84px);line-height:1.16;letter-spacing:-.045em;margin:0 0 clamp(18px,2.6vw,30px);text-wrap:initial}
+.hero h1 span{display:block;width:max-content;max-width:100%;animation:hUp .8s cubic-bezier(.2,.75,.2,1) .05s both}
+.hero h1 span+span{animation-delay:.2s}
+.hero h1 em{position:relative;display:inline-block}
+.hero h1 em::after{content:"";position:absolute;z-index:-1;left:-.05em;right:-.05em;bottom:.07em;height:.36em;background:var(--acc-s);transform-origin:left center;animation:hMark .7s cubic-bezier(.2,.75,.2,1) .7s both}
+.hero p.lead1{font-size:clamp(16px,1.75vw,19px);animation:hFade .7s ease .45s both}
+.hero .pil>div{animation:hFade .7s ease both}
+.hero .pil>div:nth-child(1){animation-delay:.6s}.hero .pil>div:nth-child(2){animation-delay:.7s}.hero .pil>div:nth-child(3){animation-delay:.8s}
+.hero .bulk{animation:hFade .7s ease .95s both}
+@keyframes hUp{from{opacity:0;transform:translateY(.5em);clip-path:inset(0 0 100% 0)}to{opacity:1;transform:none;clip-path:inset(-30% -5%)}}
+@keyframes hMark{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes hFade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hbg{position:absolute;z-index:-1;right:20px;top:clamp(40px,6.4vw,82px);width:min(30vw,330px);height:auto;overflow:visible;pointer-events:none}
+.hbg rect{fill:var(--acc-s);transform-box:fill-box;transform-origin:center bottom;animation:hBar .8s cubic-bezier(.2,.75,.2,1) both}
+.hbg rect:nth-of-type(1){animation-delay:.3s}.hbg rect:nth-of-type(2){animation-delay:.38s}.hbg rect:nth-of-type(3){animation-delay:.46s}.hbg rect:nth-of-type(4){animation-delay:.54s}.hbg rect:nth-of-type(5){animation-delay:.62s}.hbg rect:nth-of-type(6){animation-delay:.7s}.hbg rect:nth-of-type(7){animation-delay:.78s}
+.hbg path{fill:none;stroke:var(--acc);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;animation:hLine 1.2s ease-in-out 1s both}
+.hbg .hd{fill:var(--acc);transform-box:fill-box;transform-origin:center;animation:hDot .4s ease 2.1s both}
+.hbg .hr{fill:none;stroke:var(--acc);stroke-width:2;transform-box:fill-box;transform-origin:center;opacity:0;animation:hRing 2.4s ease-out 2.4s infinite}
+@keyframes hBar{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes hLine{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes hDot{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes hRing{0%{transform:scale(1);opacity:.7}70%,100%{transform:scale(3.2);opacity:0}}
+@media (max-width:560px){nav a{padding:7px 2px;font-size:12.5px;letter-spacing:-.02em}}
+@media (max-width:350px){nav a{padding:7px 1px;font-size:11px}nav a.lang{padding:5px 6px}}
+@media (max-width:1100px){.hbg{width:min(24vw,260px)}}
+@media (max-width:900px){.hbg{display:none}}
+@media (prefers-reduced-motion:reduce){.hero h1 span,.hero h1 em::after,.hero p.lead1,.hero .pil>div,.hero .bulk,.hbg rect,.hbg path,.hbg .hd{animation:none}.hbg .hr{display:none}}
 @media (prefers-reduced-motion:reduce){.mqt.run{animation:none}}
 @media (prefers-reduced-motion:reduce){.tilt div{transition:none}}
 </style>
@@ -339,7 +368,7 @@ a.shot:hover{border-color:var(--acc)}
 <body>
 <header><div class="in">
   <a class="logo" href="index.html"><span>Be<b>Search</b></span><small>비써치</small></a>
-  <nav><a href="index.html#can">서비스 안내</a><a href="daily.html">데이터 동향</a><a href="examples.html">제작 사례</a><a href="contact.html">문의·의뢰</a><a class="lang" href="en/index.html" hreflang="en" lang="en">EN</a></nav>
+  <nav><a href="index.html#can">서비스 안내</a><a href="daily.html">데이터 동향</a><a href="examples.html">제작 사례</a><a href="pricing.html">금액 산출</a><a href="contact.html">문의·의뢰</a><a class="lang" href="en/index.html" hreflang="en" lang="en">EN</a></nav>
 </div></header>
 
 <main><div class="in page">
@@ -355,7 +384,7 @@ document.querySelectorAll('.gs').forEach(function(s){s.style.display=(!b.dataset
 <footer><div class="in">
   <div class="fcols">
     <div><a class="logo" href="index.html"><span>Be<b>Search</b></span></a><p>데이터 시각화 보고서 제작 전문</p></div>
-    <div><h5>서비스</h5><a href="index.html#can">서비스 안내</a><a href="index.html#process">업무 절차</a><a href="examples.html">제작 사례</a></div>
+    <div><h5>서비스</h5><a href="index.html#can">서비스 안내</a><a href="index.html#process">업무 절차</a><a href="examples.html">제작 사례</a><a href="pricing.html">금액 산출표</a></div>
     <div><h5>고객지원</h5><a href="daily.html">데이터 동향</a><a href="index.html#faq">자주 묻는 질문</a><a href="contact.html">문의·의뢰</a></div>
     <div><h5>약관 및 정책</h5><a href="terms.html">이용약관</a><a href="privacy.html"><strong>개인정보처리방침</strong></a></div>
   </div>
@@ -426,6 +455,22 @@ fetch(SUPA_URL+'/rest/v1/rpc/record_visit',{method:'POST',headers:{'Content-Type
  try{localStorage.setItem('bs_visit',d);}catch(e){}
  document.getElementById('visT').textContent=Number(v.today).toLocaleString('ko-KR');document.getElementById('visA').textContent=Number(v.total).toLocaleString('ko-KR');
  document.getElementById('visD').textContent='('+d.replace(/-/g,'.')+' 기준)';document.getElementById('vis').hidden=false;}).catch(function(e){if(e!==0)console.warn('방문자 수 불러오기 실패',e);});
+})();
+</script>
+<script>
+/* 첫 화면 수치 올림: 227, 1,000 */
+(function(){
+if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches||!window.requestAnimationFrame)return;
+document.querySelectorAll('.hero .bulk .bn').forEach(function(bn){
+ var n=bn.querySelector('b').firstChild;if(!n||n.nodeType!==3)return;
+ var to=parseInt(n.nodeValue.replace(/[^0-9]/g,''),10);if(!to)return;
+ bn.style.minWidth=bn.offsetWidth+'px';n.nodeValue='0';
+ var t0=null,D=1300;
+ function step(ts){if(t0===null)t0=ts;var k=Math.min(1,(ts-t0)/D),e=1-Math.pow(1-k,3);
+  n.nodeValue=Math.round(to*e).toLocaleString('en-US');if(k<1)requestAnimationFrame(step);}
+ function go(){setTimeout(function(){requestAnimationFrame(step);},950);}
+ if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();go();}},{threshold:.3});io.observe(bn);}else go();
+});
 })();
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b8adcdecefed4d80b86506c3d35f29ec"}'></script><!-- End Cloudflare Web Analytics -->

@@ -142,6 +142,10 @@ print('pages ok',os.path.getsize('examples.html')//1024,'KB',len(EX))
 open('daily.html','w',encoding='utf8').write(page('데이터 동향',open('daily_body.html',encoding='utf8').read()))
 print('daily ok')
 
+# ---------- 금액 산출표 ----------
+open('pricing.html','w',encoding='utf8').write(page('금액 산출표',open('pricing_body.html',encoding='utf8').read()))
+print('pricing ok')
+
 # ---------- 약관·방침 ----------
 open('terms.html','w',encoding='utf8').write(page('이용약관',open('legal_terms.html',encoding='utf8').read()))
 open('privacy.html','w',encoding='utf8').write(page('개인정보처리방침',open('legal_privacy.html',encoding='utf8').read()))
